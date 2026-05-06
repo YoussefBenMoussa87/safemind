@@ -3,213 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeMind Global | Enterprise HSSE Intelligence</title>
+    <title>SafeMind Global | Enterprise HSSE Intelligence Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .safety-gradient { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
-        .risk-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        :root { --accent: #f97316; --bg: #020617; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; overflow-x: hidden; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .safety-border { border-left: 4px solid var(--accent); }
+        .risk-matrix-bg { background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 24px 24px; }
+        .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="min-h-screen pb-20">
+<body class="min-h-screen risk-matrix-bg">
 
-    <!-- Navigation -->
-    <nav class="border-b border-white/10 px-6 py-4 flex justify-between items-center glass sticky top-0 z-50">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 safety-gradient rounded-lg flex items-center justify-center font-bold text-white">S</div>
-            <span class="text-xl font-800 tracking-tighter uppercase">SafeMind <span class="text-orange-500">Global</span></span>
+    <!-- Global Header -->
+    <nav class="glass sticky top-0 z-50 px-8 py-4 flex justify-between items-center border-b border-white/5">
+        <div class="flex items-center gap-4">
+            <div class="h-10 w-10 bg-orange-600 rounded-xl flex items-center justify-center font-extrabold text-white shadow-lg shadow-orange-600/20">S</div>
+            <div>
+                <h1 class="text-xl font-800 tracking-tighter leading-none">SAFEMIND <span class="text-orange-500">GLOBAL</span></h1>
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Enterprise HSSE Architect v5.0</p>
+            </div>
         </div>
-        <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-400">
-            <span>Risk Engine v3.0</span>
-            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="text-orange-500 hover:text-orange-400">Project by Youssef ben moussa</a>
+        <div class="hidden lg:block">
+            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="text-xs font-bold text-slate-400 hover:text-orange-500 transition-all flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                ARCHITECT: YOUSSEF BEN MOUSSA
+            </a>
         </div>
     </nav>
 
-    <div class="max-w-5xl mx-auto px-6 mt-12">
-        <!-- Hero Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-800 mb-4 tracking-tight">Professional <span class="text-orange-500 underline decoration-orange-500/30">HSSE Analysis</span></h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Enterprise-grade hazard assessment and compliance intelligence. Built for Senior Managers and Field Supervisors.</p>
-        </div>
-
-        <!-- Input Terminal -->
-        <div class="glass rounded-3xl p-8 mb-8 shadow-2xl">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-2 h-6 safety-gradient rounded-full"></div>
-                <h2 class="text-xl font-bold tracking-tight">Situation Analysis Terminal</h2>
-            </div>
-            
-            <textarea id="situationInput" 
-                class="w-full h-40 bg-slate-900/50 border border-white/10 rounded-2xl p-6 text-slate-200 focus:ring-2 focus:ring-orange-500 focus:outline-none transition-all placeholder:text-slate-600 mb-6 text-lg"
-                placeholder="Describe the technical situation, environmental conditions, and personnel involved..."></textarea>
-            
-            <button onclick="runProAnalysis()" 
-                class="w-full py-5 safety-gradient rounded-2xl font-bold text-lg hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-orange-500/20 uppercase tracking-widest">
-                Run Comprehensive Analysis
-            </button>
-        </div>
-
-        <!-- Dashboard Output (Hidden by default) -->
-        <div id="dashboard" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-10 duration-700">
-            
-            <!-- Risk Level Row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                    <span class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Calculated Risk Score</span>
-                    <div id="riskScore" class="text-5xl font-800 text-orange-500">0</div>
-                    <span id="riskLabel" class="mt-2 text-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-orange-500/10 text-orange-500">Analyzing</span>
-                </div>
-                <div class="glass p-6 rounded-3xl md:col-span-2">
-                    <span class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 block">Executive Summary</span>
-                    <p id="summaryText" class="text-slate-200 leading-relaxed italic">Generating professional summary...</p>
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Input Dashboard -->
+        <div class="glass rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-800 mb-2">Technical Situation Analysis</h2>
+                <p class="text-slate-400 mb-8 max-w-2xl text-lg">Enter raw field data or technical conditions. The engine will infer risks, compliance gaps, and tactical interventions.</p>
+                
+                <textarea id="rawInput" 
+                    class="w-full h-48 bg-slate-900/50 rounded-2xl p-6 text-xl text-slate-100 border border-white/10 focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all outline-none placeholder:text-slate-700"
+                    placeholder="Describe the operation, environmental factors, and equipment state..."></textarea>
+                
+                <div class="mt-8 flex flex-col md:flex-row gap-6 items-center">
+                    <button onclick="architectAnalysis()" 
+                        class="w-full md:w-auto px-12 py-5 bg-orange-600 hover:bg-orange-500 text-white font-800 rounded-2xl shadow-xl shadow-orange-600/30 transition-all active:scale-95 uppercase tracking-widest">
+                        Execute Assessment
+                    </button>
+                    <div class="flex gap-4">
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400 border border-white/5 tracking-widest">ISO 45001 COMPLIANT</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400 border border-white/5 tracking-widest">OSHA 1910 READY</span>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Detailed Analysis Grid -->
+        <!-- Result Matrix Output -->
+        <div id="reportContainer" class="hidden mt-12 space-y-8">
+            
+            <!-- Risk Scoring Header -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="glass p-8 rounded-3xl text-center flex flex-col items-center justify-center border-b-4 border-orange-600">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Risk Score (RAM)</p>
+                    <div id="scoreLabel" class="text-6xl font-800 text-white">0</div>
+                    <div id="riskLevelText" class="mt-2 text-xs font-800 text-orange-500 uppercase">Analyzing...</div>
+                </div>
+                <div class="glass p-8 rounded-3xl md:col-span-3">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Executive Situation Summary</p>
+                    <p id="summaryText" class="text-xl font-semibold leading-relaxed text-slate-200"></p>
+                </div>
+            </div>
+
+            <!-- Detailed Technical Breakdown -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Immediate Interventions -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 text-red-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 14c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        <h3 class="font-bold uppercase tracking-widest text-sm">Mandatory Interventions</h3>
+                <!-- Tactical Actions -->
+                <div class="glass p-8 rounded-[2rem] border-t-4 border-red-500/50">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-red-500/10 rounded-lg text-red-500 font-bold">!</div>
+                        <h3 class="font-800 uppercase text-xs tracking-widest">Immediate Tactical Interventions</h3>
                     </div>
-                    <div id="interventionList" class="glass p-6 rounded-3xl border-l-4 border-red-500 space-y-3 text-slate-300">
-                    </div>
+                    <ul id="actionList" class="space-y-4 text-slate-300 text-sm italic"></ul>
                 </div>
 
-                <!-- Compliance & Standards -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2 text-blue-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        <h3 class="font-bold uppercase tracking-widest text-sm">Regulatory Compliance</h3>
+                <!-- Compliance -->
+                <div class="glass p-8 rounded-[2rem] border-t-4 border-blue-500/50">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-blue-500/10 rounded-lg text-blue-500 font-bold">§</div>
+                        <h3 class="font-800 uppercase text-xs tracking-widest">Regulatory & Standard Alignment</h3>
                     </div>
-                    <div id="complianceList" class="glass p-6 rounded-3xl border-l-4 border-blue-500 space-y-3 text-slate-300">
-                    </div>
+                    <ul id="complianceList" class="space-y-4 text-slate-300 text-sm font-bold"></ul>
                 </div>
             </div>
 
-            <!-- Root Cause & Mitigation Section -->
-            <div class="glass p-8 rounded-3xl bg-emerald-500/5 border-emerald-500/20">
-                <div class="flex items-center gap-2 text-emerald-500 mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    <h3 class="font-bold uppercase tracking-widest text-lg">Senior Preventative Strategy</h3>
+            <!-- Root Cause & Prevention Strategy -->
+            <div class="glass p-10 rounded-[2.5rem] bg-orange-600/[0.03] border border-orange-500/20">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="p-2 bg-orange-600/10 rounded-lg text-orange-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="font-800 uppercase text-sm tracking-[0.2em] text-orange-500">Senior Strategy & Preventative Mitigation</h3>
                 </div>
-                <div id="proactiveStrategy" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300 leading-relaxed">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 italic">Systemic Root Cause</h4>
+                        <p id="rootCauseText" class="text-slate-200 text-sm leading-relaxed"></p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 italic">Hierarchy-Driven Mitigation</h4>
+                        <p id="mitigationText" class="text-slate-200 text-sm leading-relaxed"></p>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
+    </main>
 
-    <!-- Creator Footer -->
-    <footer class="mt-20 px-6 text-center">
-        <div class="max-w-2xl mx-auto glass p-8 rounded-3xl">
-            <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" 
-                 class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-orange-500 p-1" alt="Youssef">
-            <h4 class="text-xl font-bold mb-2">Developed by Youssef ben moussa</h4>
-            <p class="text-slate-400 text-sm mb-6 uppercase tracking-[0.2em]">Senior HSSE Solutions Architect</p>
+    <!-- Global Footer -->
+    <footer class="mt-20 border-t border-white/5 py-16 px-6">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 glass p-10 rounded-[3rem]">
+            <div class="flex items-center gap-6">
+                <div class="relative">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" 
+                         class="w-20 h-20 rounded-2xl border-4 border-orange-600 p-1" alt="Youssef">
+                    <div class="absolute -bottom-2 -right-2 bg-orange-600 px-2 py-1 rounded text-[8px] font-bold">CREATOR</div>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-800 text-white leading-tight">Youssef ben moussa</h4>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">Senior Enterprise HSSE Architect</p>
+                </div>
+            </div>
             <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" 
                target="_blank" 
-               class="bg-[#0077b5] hover:bg-[#005a87] text-white px-8 py-3 rounded-xl font-bold transition-all inline-flex items-center gap-2">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                Connect on LinkedIn
+               class="px-10 py-5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold transition-all flex items-center gap-3 border border-white/10">
+                <svg class="w-6 h-6 text-[#0077b5]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                CONNECT ON LINKEDIN
             </a>
         </div>
+        <p class="text-center text-slate-600 text-[10px] mt-12 font-bold tracking-[0.4em] uppercase">&copy; SafeMind Global Systems | Data Privacy Secured</p>
     </footer>
 
     <script>
-        const HSSE_DATABASE = [
+        // --- SENIOR INTEL ENGINE ---
+        const ArchitectureMatrix = [
             {
-                keys: ['height', 'ladder', 'scaffold', 'roof', 'fall'],
+                id: 'V1',
+                triggers: ['height', 'ladder', 'roof', 'scaffold', 'climb', 'fall'],
                 score: 20,
                 label: 'EXTREME RISK',
-                summary: 'Working at height without verified fall protection is a critical life-safety violation. Fatalities in this category are the leading cause of industrial death globally.',
-                actions: ['Halt operations immediately via Stop Work Authority (SWA).', 'Ensure the technician is safely recovered or brought to ground level.', 'Inspect harness integrity and anchor point certification before resuming.'],
-                compliance: ['ISO 45001: Clause 8.1.2', 'OSHA 1910.28 (Duty to have Fall Protection)', 'Company Life-Saving Rules (Rule #1)'],
+                summary: 'Unauthorized or unmonitored work at height presents a critical risk of a gravitationally induced fatality.',
+                actions: ['Invoke immediate Stop Work Authority (SWA).', 'Physically cordon off the fall zone.', 'Verify harness anchor-point structural integrity via 3rd party certification.'],
+                compliance: ['ISO 45001:2018 Clause 8.1.2', 'OSHA 1910.28 (Duty to have Fall Protection)'],
                 strategy: {
-                    root: 'Failure of Administrative Controls (Permit to Work) and failure to apply the Hierarchy of Controls (using a ladder instead of an engineering solution like a scissor lift).',
-                    mitigation: 'Implement a permanent 100% Tie-Off policy and transition to mobile elevated work platforms (MEWPs) to eliminate free-climb hazards.'
+                    root: 'Failure of Administrative PTW (Permit to Work) oversight and absence of engineering fall-barriers.',
+                    mitigation: 'Implement a permanent 'Zero-Ladder' policy for tasks above 2 meters, transitioning to MEWPs (Mobile Elevated Work Platforms) to elevate the Hierarchy of Control.'
                 }
             },
             {
-                keys: ['confined', 'tank', 'vessel', 'gas', 'entry'],
+                id: 'V2',
+                triggers: ['confined', 'tank', 'vessel', 'gas', 'entry', 'pit', 'trench'],
                 score: 25,
                 label: 'IDLH CRITICAL',
-                summary: 'Confined space entry without atmospheric monitoring is classified as Immediately Dangerous to Life and Health (IDLH). Massive gas-pocket risk.',
-                actions: ['Withdraw all personnel immediately.', 'Seal entry points until atmospheric testing is conducted.', 'Assign a dedicated Competent Standby Person (Hole Watch).'],
-                compliance: ['OSHA 1910.146 (Permit-Required Confined Spaces)', 'ISO 45001 Operational Control', 'ANSI/ASSP Z117.1'],
+                summary: 'Confined space entry without atmospheric validation constitutes an Immediately Dangerous to Life or Health (IDLH) scenario.',
+                actions: ['Withdraw all personnel and lock the entry port.', 'Conduct continuous multi-gas monitoring (O2, H2S, LEL).', 'Establish a dedicated standby man and rescue recovery winch system.'],
+                compliance: ['OSHA 1910.146 (Permit-Required Confined Spaces)', 'ANSI/ASSP Z117.1-2022'],
                 strategy: {
-                    root: 'Inadequate risk perception by the field team and lack of continuous gas monitoring equipment.',
-                    mitigation: 'Purchase multi-gas detectors and enforce a mandatory Permit-to-Work (PTW) checklist that requires supervisor signatures before every entry.'
+                    root: 'Severe bypass of isolation protocols and lack of calibrated detection equipment.',
+                    mitigation: 'Transition to remote drone inspection technology to eliminate human entry entirely (Hierarchy level: Elimination).'
                 }
             },
             {
-                keys: ['electric', 'power', 'loto', 'energy', 'voltage'],
-                score: 16,
+                id: 'V3',
+                triggers: ['electric', 'wire', 'loto', 'energy', 'voltage', 'power', 'shock'],
+                score: 18,
                 label: 'HIGH RISK',
-                summary: 'Uncontrolled hazardous energy poses an immediate electrocution and arc-flash risk to technicians.',
-                actions: ['Perform physical isolation of energy source.', 'Apply personalized padlocks and tags (Lockout/Tagout).', 'Conduct "Test Before Touch" verification at the zero-energy state.'],
-                compliance: ['NFPA 70E (Electrical Safety)', 'OSHA 1910.147 (Control of Hazardous Energy)', 'ISO 45001:2018'],
+                summary: 'Live electrical intervention without verified lockout/tagout presents high-severity arc-flash and electrocution vectors.',
+                actions: ['Halt operations and isolate main breaker.', 'Apply personalized locks and tags (LOTO) per person.', 'Execute Test-Before-Touch protocol using calibrated non-contact voltmeters.'],
+                compliance: ['NFPA 70E (Electrical Safety in the Workplace)', 'OSHA 1910.147 (Control of Hazardous Energy)'],
                 strategy: {
-                    root: 'Systemic failure in the energy isolation procedure or lack of technician training on LOTO devices.',
-                    mitigation: 'Annual recertification for all authorized employees and periodic audits of isolation points.'
+                    root: 'Inadequate individual isolation competency and equipment deficiency.',
+                    mitigation: 'Install permanent energy-isolation verification devices (ERDs) to provide visible proof of zero-energy state.'
                 }
             }
         ];
 
-        function runProAnalysis() {
-            const input = document.getElementById('situationInput').value.toLowerCase();
-            if(!input.trim()) return;
+        function architectAnalysis() {
+            const rawText = document.getElementById('rawInput').value.toLowerCase();
+            const report = document.getElementById('reportContainer');
+            
+            if(rawText.length < 10) return alert("System requires more technical context for professional analysis.");
+            
+            report.classList.remove('hidden');
+            report.classList.add('animate-slide-up');
 
-            const dash = document.getElementById('dashboard');
-            dash.classList.remove('hidden');
+            let data = ArchitectureMatrix.find(item => item.triggers.some(t => rawText.includes(t)));
 
-            let matched = HSSE_DATABASE.find(item => item.keys.some(k => input.includes(k)));
-
-            if(matched) {
-                updateUI(matched);
-            } else {
-                updateUI({
-                    score: 8,
+            if(!data) {
+                data = {
+                    score: 12,
                     label: 'MODERATE RISK',
-                    summary: 'The situation described is categorized as a general operational hazard. While not immediately fatal, it requires a formal Job Safety Analysis (JSA).',
-                    actions: ['Perform a Job Safety Analysis (JSA) before continuing.', 'Review site-specific safety plan (SSSP).', 'Hold a Toolbox Talk to communicate new hazards.'],
-                    compliance: ['ISO 45001 General Duty Clause', 'OSHA Section 5(a)(1)'],
+                    summary: 'The described operation indicates a standard operational hazard requiring dynamic risk assessment and supervision.',
+                    actions: ['Perform a Job Safety Analysis (JSA).', 'Ensure all personnel are wearing standard site PPE.', 'Conduct a TBT (Toolbox Talk) to refresh hazard awareness.'],
+                    compliance: ['ISO 45001 Clause 5.4', 'OSHA General Duty Clause Section 5(a)(1)'],
                     strategy: {
-                        root: 'Incomplete pre-task planning.',
-                        mitigation: 'Enhance site-induction training to include hazard recognition for complex task intersections.'
+                        root: 'Lack of task-specific risk documentation.',
+                        mitigation: 'Develop a Standard Operating Procedure (SOP) that integrates safety steps directly into the work sequence.'
                     }
-                });
+                };
             }
 
-            window.scrollTo({ top: dash.offsetTop - 100, behavior: 'smooth' });
-        }
-
-        function updateUI(data) {
-            document.getElementById('riskScore').innerText = data.score;
-            document.getElementById('riskLabel').innerText = data.label;
+            // Map UI
+            document.getElementById('scoreLabel').innerText = data.score;
+            document.getElementById('riskLevelText').innerText = data.label;
             document.getElementById('summaryText').innerText = data.summary;
+            document.getElementById('actionList').innerHTML = data.actions.map(a => `<li>― ${a}</li>`).join('');
+            document.getElementById('complianceList').innerHTML = data.compliance.map(c => `<li class="flex items-center gap-2"><div class="w-2 h-2 bg-blue-500 rounded-sm"></div> ${c}</li>`).join('');
+            document.getElementById('rootCauseText').innerText = data.strategy.root;
+            document.getElementById('mitigationText').innerText = data.strategy.mitigation;
 
-            const intList = document.getElementById('interventionList');
-            intList.innerHTML = data.actions.map(a => `<div class="flex items-start gap-2"><span class="text-red-500 font-bold">•</span><span>${a}</span></div>`).join('');
-
-            const compList = document.getElementById('complianceList');
-            compList.innerHTML = data.compliance.map(c => `<div class="flex items-start gap-2"><span class="text-blue-400 font-bold">✓</span><span>${c}</span></div>`).join('');
-
-            const strat = document.getElementById('proactiveStrategy');
-            strat.innerHTML = `
-                <div>
-                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Root Cause Forecast</span>
-                    <p class="text-slate-200">${data.strategy.root}</p>
-                </div>
-                <div>
-                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Strategic Mitigation</span>
-                    <p class="text-slate-200">${data.strategy.mitigation}</p>
-                </div>
-            `;
+            window.scrollTo({ top: report.offsetTop - 100, behavior: 'smooth' });
         }
     </script>
 </body>
