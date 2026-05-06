@@ -127,4 +127,90 @@
                 score: 20,
                 label: 'EXTREME RISK',
                 summary: 'Working at height without verified fall protection is a critical life-safety violation. Fatalities in this category are the leading cause of industrial death globally.',
-                actions: ['Halt operations immediately via Stop Work Authority (SWA).', 'Ensure the technician is safely recovered or brought to ground level.', 'Inspect
+                actions: ['Halt operations immediately via Stop Work Authority (SWA).', 'Ensure the technician is safely recovered or brought to ground level.', 'Inspect harness integrity and anchor point certification before resuming.'],
+                compliance: ['ISO 45001: Clause 8.1.2', 'OSHA 1910.28 (Duty to have Fall Protection)', 'Company Life-Saving Rules (Rule #1)'],
+                strategy: {
+                    root: 'Failure of Administrative Controls (Permit to Work) and failure to apply the Hierarchy of Controls (using a ladder instead of an engineering solution like a scissor lift).',
+                    mitigation: 'Implement a permanent 100% Tie-Off policy and transition to mobile elevated work platforms (MEWPs) to eliminate free-climb hazards.'
+                }
+            },
+            {
+                keys: ['confined', 'tank', 'vessel', 'gas', 'entry'],
+                score: 25,
+                label: 'IDLH CRITICAL',
+                summary: 'Confined space entry without atmospheric monitoring is classified as Immediately Dangerous to Life and Health (IDLH). Massive gas-pocket risk.',
+                actions: ['Withdraw all personnel immediately.', 'Seal entry points until atmospheric testing is conducted.', 'Assign a dedicated Competent Standby Person (Hole Watch).'],
+                compliance: ['OSHA 1910.146 (Permit-Required Confined Spaces)', 'ISO 45001 Operational Control', 'ANSI/ASSP Z117.1'],
+                strategy: {
+                    root: 'Inadequate risk perception by the field team and lack of continuous gas monitoring equipment.',
+                    mitigation: 'Purchase multi-gas detectors and enforce a mandatory Permit-to-Work (PTW) checklist that requires supervisor signatures before every entry.'
+                }
+            },
+            {
+                keys: ['electric', 'power', 'loto', 'energy', 'voltage'],
+                score: 16,
+                label: 'HIGH RISK',
+                summary: 'Uncontrolled hazardous energy poses an immediate electrocution and arc-flash risk to technicians.',
+                actions: ['Perform physical isolation of energy source.', 'Apply personalized padlocks and tags (Lockout/Tagout).', 'Conduct "Test Before Touch" verification at the zero-energy state.'],
+                compliance: ['NFPA 70E (Electrical Safety)', 'OSHA 1910.147 (Control of Hazardous Energy)', 'ISO 45001:2018'],
+                strategy: {
+                    root: 'Systemic failure in the energy isolation procedure or lack of technician training on LOTO devices.',
+                    mitigation: 'Annual recertification for all authorized employees and periodic audits of isolation points.'
+                }
+            }
+        ];
+
+        function runProAnalysis() {
+            const input = document.getElementById('situationInput').value.toLowerCase();
+            if(!input.trim()) return;
+
+            const dash = document.getElementById('dashboard');
+            dash.classList.remove('hidden');
+
+            let matched = HSSE_DATABASE.find(item => item.keys.some(k => input.includes(k)));
+
+            if(matched) {
+                updateUI(matched);
+            } else {
+                updateUI({
+                    score: 8,
+                    label: 'MODERATE RISK',
+                    summary: 'The situation described is categorized as a general operational hazard. While not immediately fatal, it requires a formal Job Safety Analysis (JSA).',
+                    actions: ['Perform a Job Safety Analysis (JSA) before continuing.', 'Review site-specific safety plan (SSSP).', 'Hold a Toolbox Talk to communicate new hazards.'],
+                    compliance: ['ISO 45001 General Duty Clause', 'OSHA Section 5(a)(1)'],
+                    strategy: {
+                        root: 'Incomplete pre-task planning.',
+                        mitigation: 'Enhance site-induction training to include hazard recognition for complex task intersections.'
+                    }
+                });
+            }
+
+            window.scrollTo({ top: dash.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function updateUI(data) {
+            document.getElementById('riskScore').innerText = data.score;
+            document.getElementById('riskLabel').innerText = data.label;
+            document.getElementById('summaryText').innerText = data.summary;
+
+            const intList = document.getElementById('interventionList');
+            intList.innerHTML = data.actions.map(a => `<div class="flex items-start gap-2"><span class="text-red-500 font-bold">•</span><span>${a}</span></div>`).join('');
+
+            const compList = document.getElementById('complianceList');
+            compList.innerHTML = data.compliance.map(c => `<div class="flex items-start gap-2"><span class="text-blue-400 font-bold">✓</span><span>${c}</span></div>`).join('');
+
+            const strat = document.getElementById('proactiveStrategy');
+            strat.innerHTML = `
+                <div>
+                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Root Cause Forecast</span>
+                    <p class="text-slate-200">${data.strategy.root}</p>
+                </div>
+                <div>
+                    <span class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Strategic Mitigation</span>
+                    <p class="text-slate-200">${data.strategy.mitigation}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
