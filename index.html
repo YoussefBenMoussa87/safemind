@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind Global | HSSE Intelligence</title>
+    <!-- Professional Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #f97316; /* Safety Orange */
+            --danger: #ef4444;
+            --success: #22c55e;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+
+        /* Senior Branding Header */
+        header { 
+            text-align: center; 
+            padding: 40px 0; 
+            border-bottom: 1px solid #334155;
+            margin-bottom: 40px;
+        }
+        .brand-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
+        .brand-title span { color: var(--accent); }
+        .creator-badge { 
+            margin-top: 10px; 
+            font-size: 0.9rem; 
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .creator-link { color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .creator-link:hover { border-bottom: 1px solid var(--accent); }
+
+        /* Main Input Area */
+        .input-section { 
+            background: var(--card); 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+        }
+        label { display: block; margin-bottom: 15px; font-weight: 600; font-size: 1.1rem; }
+        textarea { 
+            width: 100%; 
+            height: 120px; 
+            background: #0f172a; 
+            border: 2px solid #334155; 
+            border-radius: 12px; 
+            color: white; 
+            padding: 15px; 
+            font-size: 1rem; 
+            resize: none;
+            transition: 0.3s;
+        }
+        textarea:focus { border-color: var(--accent); outline: none; }
+
+        button { 
+            width: 100%; 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 12px; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin-top: 20px;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        button:hover { background: #ea580c; transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+
+        /* Result Cards */
+        #outputBox { margin-top: 40px; display: none; animation: fadeIn 0.5s ease; }
+        .report-grid { display: grid; gap: 20px; }
+        .card { 
+            background: var(--card); 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-left: 6px solid var(--accent);
+        }
+        .card.emergency { border-left-color: var(--danger); }
+        .card h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; letter-spacing: 1px; }
+        .card p { font-size: 1.05rem; font-weight: 400; }
+
+        /* Footer & LinkedIn */
+        footer { text-align: center; margin-top: 60px; padding: 40px 0; color: var(--text-dim); font-size: 0.85rem; border-top: 1px solid #334155; }
+        .linkedin-btn { 
+            display: inline-block; 
+            margin-top: 15px; 
+            padding: 10px 20px; 
+            background: #0077b5; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 6px; 
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .linkedin-btn:hover { background: #005a87; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="brand-title">SafeMind<span>Global</span></div>
+        <div class="creator-badge">
+            System Developed by: 
+            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="creator-link">
+                Youssef ben moussa
+            </a>
+        </div>
+    </header>
+
+    <main class="input-section">
+        <label>Describe the Field Situation</label>
+        <textarea id="situationInput" placeholder="e.g., Worker found in excavation without shoring, heavy rain starting..."></textarea>
+        <button onclick="generateReport()">Analyze Compliance & Risk</button>
+    </main>
+
+    <div id="outputBox">
+        <div class="report-grid">
+            <div class="card emergency">
+                <h3>1. Immediate Tactical Actions</h3>
+                <p id="actionOut"></p>
+            </div>
+            <div class="card">
+                <h3>2. Strategic Logic (Hierarchy of Control)</h3>
+                <p id="logicOut"></p>
+            </div>
+            <div class="card">
+                <h3>3. Global Standards & Compliance</h3>
+                <p id="stdOut"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SafeMind Global Intelligence Platform.</p>
+        <p>A Senior Tool for HSSE Professionals Worldwide.</p>
+        <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="linkedin-btn">
+            Connect with Youssef on LinkedIn
+        </a>
+    </footer>
+</div>
+
+<script>
+    // Advanced Knowledge Base
+    const hsseKnowledge = [
+        { 
+            keys: ['height', 'ladder', 'roof', 'fall', 'scaffold'], 
+            action: 'Immediate Stop-Work Order. Evaluate fall arrest systems. Ensure 3-point contact on ladders or guardrail integrity.', 
+            logic: 'Moving from Administrative control (training) to Engineering control (passive fall protection). Priority: Elimination of fall potential.', 
+            std: 'ISO 45001: Clause 8.1.2 (Hierarchy of Controls) / OSHA 1910.28' 
+        },
+        { 
+            keys: ['confined', 'tank', 'vessel', 'hole', 'pit'], 
+            action: 'Evacuate entry. Conduct atmospheric testing (O2/LEL). Verify Standby Man presence and rescue plan.', 
+            logic: 'IDLH (Immediately Dangerous to Life or Health) prevention. Administrative Control: Entry Permit System.', 
+            std: 'ISO 45001: Clause 8.1 / OSHA 1910.146' 
+        },
+        { 
+            keys: ['electric', 'wire', 'cable', 'power', 'loto', 'energy'], 
+            action: 'De-energize source. Apply physical Locks/Tags. Verify zero energy state before contact.', 
+            logic: 'Hierarchy: Elimination of hazardous energy. PPE (Gloves) is secondary to physical isolation.', 
+            std: 'NFPA 70E / ISO 45001 Clause 8.1.3 / OSHA 1910.147' 
+        },
+        { 
+            keys: ['excavation', 'trench', 'dig', 'soil', 'cave'], 
+            action: 'Exit trench. Implement shoring, shielding, or sloping. Check for underground utilities.', 
+            logic: 'Engineering Control: Physical protection against soil collapse (Eliminating entrapment risk).', 
+            std: 'OSHA 1926 Subpart P / ISO 45001' 
+        },
+        { 
+            keys: ['chemical', 'spill', 'leak', 'gas', 'acid', 'toxic'], 
+            action: 'Upwind evacuation. Identify substance via SDS. Containment of source using spill kits.', 
+            logic: 'Engineering Control: Local Exhaust Ventilation or Containment. PPE: Respiratory protection.', 
+            std: 'ISO 14001:2015 (Environment) / OSHA 1910.1200' 
+        }
+    ];
+
+    function generateReport() {
+        const input = document.getElementById('situationInput').value.toLowerCase();
+        if(!input.trim()) return alert("Please describe a situation.");
+
+        let matched = hsseKnowledge.find(item => item.keys.some(k => input.includes(k)));
+
+        const actionText = matched ? matched.action : "Initiate Stop Work Authority. Perform a documented Job Safety Analysis (JSA). Consult the Site Safety Plan.";
+        const logicText = matched ? matched.logic : "Apply the Precautionary Principle. If the hazard is unknown, assume maximum risk until engineering controls are verified.";
+        const stdText = matched ? matched.std : "ISO 45001 General Duty Clause / OSHA Section 5(a)(1).";
+
+        document.getElementById('actionOut').innerText = actionText;
+        document.getElementById('logicOut').innerText = logicText;
+        document.getElementById('stdOut').innerText = stdText;
+        
+        document.getElementById('outputBox').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('outputBox').offsetTop, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
