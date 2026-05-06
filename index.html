@@ -3,219 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeMind Global | HSSE Intelligence</title>
-    <!-- Professional Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>SafeMind Global | Enterprise HSSE Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --accent: #f97316; /* Safety Orange */
-            --danger: #ef4444;
-            --success: #22c55e;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container { max-width: 800px; margin: 0 auto; }
-
-        /* Senior Branding Header */
-        header { 
-            text-align: center; 
-            padding: 40px 0; 
-            border-bottom: 1px solid #334155;
-            margin-bottom: 40px;
-        }
-        .brand-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
-        .brand-title span { color: var(--accent); }
-        .creator-badge { 
-            margin-top: 10px; 
-            font-size: 0.9rem; 
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .creator-link { color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: 0.3s; }
-        .creator-link:hover { border-bottom: 1px solid var(--accent); }
-
-        /* Main Input Area */
-        .input-section { 
-            background: var(--card); 
-            padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
-            border: 1px solid #334155;
-        }
-        label { display: block; margin-bottom: 15px; font-weight: 600; font-size: 1.1rem; }
-        textarea { 
-            width: 100%; 
-            height: 120px; 
-            background: #0f172a; 
-            border: 2px solid #334155; 
-            border-radius: 12px; 
-            color: white; 
-            padding: 15px; 
-            font-size: 1rem; 
-            resize: none;
-            transition: 0.3s;
-        }
-        textarea:focus { border-color: var(--accent); outline: none; }
-
-        button { 
-            width: 100%; 
-            background: var(--accent); 
-            color: white; 
-            border: none; 
-            padding: 18px; 
-            border-radius: 12px; 
-            font-size: 1.1rem; 
-            font-weight: 700; 
-            cursor: pointer; 
-            margin-top: 20px;
-            transition: 0.2s;
-            text-transform: uppercase;
-        }
-        button:hover { background: #ea580c; transform: translateY(-2px); }
-        button:active { transform: translateY(0); }
-
-        /* Result Cards */
-        #outputBox { margin-top: 40px; display: none; animation: fadeIn 0.5s ease; }
-        .report-grid { display: grid; gap: 20px; }
-        .card { 
-            background: var(--card); 
-            padding: 25px; 
-            border-radius: 12px; 
-            border-left: 6px solid var(--accent);
-        }
-        .card.emergency { border-left-color: var(--danger); }
-        .card h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; letter-spacing: 1px; }
-        .card p { font-size: 1.05rem; font-weight: 400; }
-
-        /* Footer & LinkedIn */
-        footer { text-align: center; margin-top: 60px; padding: 40px 0; color: var(--text-dim); font-size: 0.85rem; border-top: 1px solid #334155; }
-        .linkedin-btn { 
-            display: inline-block; 
-            margin-top: 15px; 
-            padding: 10px 20px; 
-            background: #0077b5; 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 6px; 
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .linkedin-btn:hover { background: #005a87; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .safety-gradient { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+        .risk-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
-<body>
+<body class="min-h-screen pb-20">
 
-<div class="container">
-    <header>
-        <div class="brand-title">SafeMind<span>Global</span></div>
-        <div class="creator-badge">
-            System Developed by: 
-            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="creator-link">
-                Youssef ben moussa
-            </a>
+    <!-- Navigation -->
+    <nav class="border-b border-white/10 px-6 py-4 flex justify-between items-center glass sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 safety-gradient rounded-lg flex items-center justify-center font-bold text-white">S</div>
+            <span class="text-xl font-800 tracking-tighter uppercase">SafeMind <span class="text-orange-500">Global</span></span>
         </div>
-    </header>
+        <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-400">
+            <span>Risk Engine v3.0</span>
+            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="text-orange-500 hover:text-orange-400">Project by Youssef ben moussa</a>
+        </div>
+    </nav>
 
-    <main class="input-section">
-        <label>Describe the Field Situation</label>
-        <textarea id="situationInput" placeholder="e.g., Worker found in excavation without shoring, heavy rain starting..."></textarea>
-        <button onclick="generateReport()">Analyze Compliance & Risk</button>
-    </main>
+    <div class="max-w-5xl mx-auto px-6 mt-12">
+        <!-- Hero Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-800 mb-4 tracking-tight">Professional <span class="text-orange-500 underline decoration-orange-500/30">HSSE Analysis</span></h1>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Enterprise-grade hazard assessment and compliance intelligence. Built for Senior Managers and Field Supervisors.</p>
+        </div>
 
-    <div id="outputBox">
-        <div class="report-grid">
-            <div class="card emergency">
-                <h3>1. Immediate Tactical Actions</h3>
-                <p id="actionOut"></p>
+        <!-- Input Terminal -->
+        <div class="glass rounded-3xl p-8 mb-8 shadow-2xl">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-2 h-6 safety-gradient rounded-full"></div>
+                <h2 class="text-xl font-bold tracking-tight">Situation Analysis Terminal</h2>
             </div>
-            <div class="card">
-                <h3>2. Strategic Logic (Hierarchy of Control)</h3>
-                <p id="logicOut"></p>
+            
+            <textarea id="situationInput" 
+                class="w-full h-40 bg-slate-900/50 border border-white/10 rounded-2xl p-6 text-slate-200 focus:ring-2 focus:ring-orange-500 focus:outline-none transition-all placeholder:text-slate-600 mb-6 text-lg"
+                placeholder="Describe the technical situation, environmental conditions, and personnel involved..."></textarea>
+            
+            <button onclick="runProAnalysis()" 
+                class="w-full py-5 safety-gradient rounded-2xl font-bold text-lg hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-orange-500/20 uppercase tracking-widest">
+                Run Comprehensive Analysis
+            </button>
+        </div>
+
+        <!-- Dashboard Output (Hidden by default) -->
+        <div id="dashboard" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-10 duration-700">
+            
+            <!-- Risk Level Row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                    <span class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Calculated Risk Score</span>
+                    <div id="riskScore" class="text-5xl font-800 text-orange-500">0</div>
+                    <span id="riskLabel" class="mt-2 text-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-orange-500/10 text-orange-500">Analyzing</span>
+                </div>
+                <div class="glass p-6 rounded-3xl md:col-span-2">
+                    <span class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 block">Executive Summary</span>
+                    <p id="summaryText" class="text-slate-200 leading-relaxed italic">Generating professional summary...</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>3. Global Standards & Compliance</h3>
-                <p id="stdOut"></p>
+
+            <!-- Detailed Analysis Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Immediate Interventions -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-red-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 14c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <h3 class="font-bold uppercase tracking-widest text-sm">Mandatory Interventions</h3>
+                    </div>
+                    <div id="interventionList" class="glass p-6 rounded-3xl border-l-4 border-red-500 space-y-3 text-slate-300">
+                    </div>
+                </div>
+
+                <!-- Compliance & Standards -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-blue-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        <h3 class="font-bold uppercase tracking-widest text-sm">Regulatory Compliance</h3>
+                    </div>
+                    <div id="complianceList" class="glass p-6 rounded-3xl border-l-4 border-blue-500 space-y-3 text-slate-300">
+                    </div>
+                </div>
             </div>
+
+            <!-- Root Cause & Mitigation Section -->
+            <div class="glass p-8 rounded-3xl bg-emerald-500/5 border-emerald-500/20">
+                <div class="flex items-center gap-2 text-emerald-500 mb-6">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <h3 class="font-bold uppercase tracking-widest text-lg">Senior Preventative Strategy</h3>
+                </div>
+                <div id="proactiveStrategy" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300 leading-relaxed">
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 SafeMind Global Intelligence Platform.</p>
-        <p>A Senior Tool for HSSE Professionals Worldwide.</p>
-        <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" target="_blank" class="linkedin-btn">
-            Connect with Youssef on LinkedIn
-        </a>
+    <!-- Creator Footer -->
+    <footer class="mt-20 px-6 text-center">
+        <div class="max-w-2xl mx-auto glass p-8 rounded-3xl">
+            <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" 
+                 class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-orange-500 p-1" alt="Youssef">
+            <h4 class="text-xl font-bold mb-2">Developed by Youssef ben moussa</h4>
+            <p class="text-slate-400 text-sm mb-6 uppercase tracking-[0.2em]">Senior HSSE Solutions Architect</p>
+            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/?locale=en" 
+               target="_blank" 
+               class="bg-[#0077b5] hover:bg-[#005a87] text-white px-8 py-3 rounded-xl font-bold transition-all inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                Connect on LinkedIn
+            </a>
+        </div>
     </footer>
-</div>
 
-<script>
-    // Advanced Knowledge Base
-    const hsseKnowledge = [
-        { 
-            keys: ['height', 'ladder', 'roof', 'fall', 'scaffold'], 
-            action: 'Immediate Stop-Work Order. Evaluate fall arrest systems. Ensure 3-point contact on ladders or guardrail integrity.', 
-            logic: 'Moving from Administrative control (training) to Engineering control (passive fall protection). Priority: Elimination of fall potential.', 
-            std: 'ISO 45001: Clause 8.1.2 (Hierarchy of Controls) / OSHA 1910.28' 
-        },
-        { 
-            keys: ['confined', 'tank', 'vessel', 'hole', 'pit'], 
-            action: 'Evacuate entry. Conduct atmospheric testing (O2/LEL). Verify Standby Man presence and rescue plan.', 
-            logic: 'IDLH (Immediately Dangerous to Life or Health) prevention. Administrative Control: Entry Permit System.', 
-            std: 'ISO 45001: Clause 8.1 / OSHA 1910.146' 
-        },
-        { 
-            keys: ['electric', 'wire', 'cable', 'power', 'loto', 'energy'], 
-            action: 'De-energize source. Apply physical Locks/Tags. Verify zero energy state before contact.', 
-            logic: 'Hierarchy: Elimination of hazardous energy. PPE (Gloves) is secondary to physical isolation.', 
-            std: 'NFPA 70E / ISO 45001 Clause 8.1.3 / OSHA 1910.147' 
-        },
-        { 
-            keys: ['excavation', 'trench', 'dig', 'soil', 'cave'], 
-            action: 'Exit trench. Implement shoring, shielding, or sloping. Check for underground utilities.', 
-            logic: 'Engineering Control: Physical protection against soil collapse (Eliminating entrapment risk).', 
-            std: 'OSHA 1926 Subpart P / ISO 45001' 
-        },
-        { 
-            keys: ['chemical', 'spill', 'leak', 'gas', 'acid', 'toxic'], 
-            action: 'Upwind evacuation. Identify substance via SDS. Containment of source using spill kits.', 
-            logic: 'Engineering Control: Local Exhaust Ventilation or Containment. PPE: Respiratory protection.', 
-            std: 'ISO 14001:2015 (Environment) / OSHA 1910.1200' 
-        }
-    ];
-
-    function generateReport() {
-        const input = document.getElementById('situationInput').value.toLowerCase();
-        if(!input.trim()) return alert("Please describe a situation.");
-
-        let matched = hsseKnowledge.find(item => item.keys.some(k => input.includes(k)));
-
-        const actionText = matched ? matched.action : "Initiate Stop Work Authority. Perform a documented Job Safety Analysis (JSA). Consult the Site Safety Plan.";
-        const logicText = matched ? matched.logic : "Apply the Precautionary Principle. If the hazard is unknown, assume maximum risk until engineering controls are verified.";
-        const stdText = matched ? matched.std : "ISO 45001 General Duty Clause / OSHA Section 5(a)(1).";
-
-        document.getElementById('actionOut').innerText = actionText;
-        document.getElementById('logicOut').innerText = logicText;
-        document.getElementById('stdOut').innerText = stdText;
-        
-        document.getElementById('outputBox').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('outputBox').offsetTop, behavior: 'smooth' });
-    }
-</script>
-
-</body>
-</html>
+    <script>
+        const HSSE_DATABASE = [
+            {
+                keys: ['height', 'ladder', 'scaffold', 'roof', 'fall'],
+                score: 20,
+                label: 'EXTREME RISK',
+                summary: 'Working at height without verified fall protection is a critical life-safety violation. Fatalities in this category are the leading cause of industrial death globally.',
+                actions: ['Halt operations immediately via Stop Work Authority (SWA).', 'Ensure the technician is safely recovered or brought to ground level.', 'Inspect
