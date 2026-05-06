@@ -3,145 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YBM_AI | Enterprise HSSE Intelligence</title>
+    <title>YBM_AI | HSSE Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-base: #030712; --panel-bg: rgba(17, 24, 39, 0.7); --accent: #f97316; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-base); color: #f8fafc; -webkit-font-smoothing: antialiased; background-image: radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.04), transparent 50%), radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.03), transparent 50%); background-attachment: fixed; }
+        :root { --bg-base: #030712; --panel-bg: rgba(17, 24, 39, 0.7); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-base); color: #f8fafc; -webkit-font-smoothing: antialiased; background-image: radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.05), transparent 50%); background-attachment: fixed; }
         .font-terminal { font-family: 'JetBrains Mono', monospace; }
-        .glass-panel { background: var(--panel-bg); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
-        .glass-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .glass-card:hover { transform: translateY(-4px); border-color: rgba(249, 115, 22, 0.4); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
-        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-        .terminal-scan { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent, rgba(249,115,22,0.05), transparent); animation: scanline 4s linear infinite; pointer-events: none; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .glass-panel { background: var(--panel-bg); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative selection:bg-orange-500/30">
+<body class="min-h-screen flex flex-col relative">
 
     <nav class="glass-panel sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/5">
         <div class="flex items-center gap-4">
-            <div class="h-10 w-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(249,115,22,0.4)]">YBM</div>
-            <div>
-                <h1 class="text-xl font-900 tracking-tighter leading-none text-white">YBM_<span class="text-orange-500">AI</span></h1>
-                <p class="text-[8px] text-slate-400 font-bold uppercase tracking-[0.3em] mt-1">Generative HSSE Engine v14.0</p>
-            </div>
+            <div class="h-10 w-10 bg-orange-600 rounded-lg flex items-center justify-center font-black text-white shadow-lg">YBM</div>
+            <h1 class="text-xl font-900 text-white">YBM_<span class="text-orange-500">AI</span></h1>
         </div>
-        <div class="hidden md:flex items-center gap-6 bg-black/40 px-4 py-2 rounded-full border border-white/5 text-[9px] font-bold tracking-widest text-slate-300 uppercase">
-            <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span></span> LLM Production Core
-        </div>
+        <div class="text-[9px] font-bold text-green-500 uppercase tracking-widest bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20">System Live</div>
     </nav>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 flex flex-col gap-8">
-        <section class="glass-panel rounded-[2rem] p-1 shadow-2xl relative overflow-hidden group">
-            <div class="bg-[#0a0d14] rounded-[1.8rem] p-8 md:p-12 relative overflow-hidden border border-white/5">
-                <div class="terminal-scan"></div>
-                <h2 class="text-3xl md:text-4xl font-900 tracking-tight text-white mb-2">Situational Intelligence <span class="text-orange-500 italic">Terminal</span></h2>
-                <p class="text-slate-400 text-sm font-medium mb-8">Deploy YBM_AI to assess complex field conditions and human factors.</p>
-                <div class="relative z-10 mb-6">
-                    <div class="absolute top-0 left-0 w-full h-8 bg-black/60 rounded-t-2xl border-b border-white/10 flex items-center px-4 gap-2 text-[10px] font-terminal text-slate-500">
-                        <div class="w-2 h-2 rounded-full bg-red-500"></div><div class="w-2 h-2 rounded-full bg-yellow-500"></div><div class="w-2 h-2 rounded-full bg-green-500"></div>
-                        <span class="ml-2">ybm_ai@enterprise:~/risk_assessment$</span>
-                    </div>
-                    <textarea id="intelInput" class="w-full h-40 bg-[#0d1117] rounded-2xl pt-12 pb-6 px-6 text-sm font-terminal text-green-400 border border-white/10 outline-none focus:border-orange-500/50 resize-none" placeholder="> Enter observation..."></textarea>
-                </div>
-                <div class="flex justify-between items-center relative z-10">
-                    <div class="flex gap-2"><span class="text-[9px] font-bold text-slate-500 bg-white/5 px-3 py-1.5 rounded border border-white/5 uppercase">ISO 45001 / OSHA</span></div>
-                    <button id="analyzeBtn" onclick="executeAIAudit()" class="px-10 py-4 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl font-800 text-white uppercase tracking-widest text-xs shadow-lg shadow-orange-500/20 active:scale-95 transition-all">Execute Analysis</button>
-                </div>
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-12 flex flex-col gap-8">
+        <section class="glass-panel rounded-3xl p-8 md:p-12 border border-white/5 shadow-2xl relative overflow-hidden">
+            <h2 class="text-3xl font-900 text-white mb-4">Risk Assessment <span class="text-orange-500 italic">Terminal</span></h2>
+            <div class="relative mb-6">
+                <div class="absolute top-0 left-0 w-full h-8 bg-black/40 rounded-t-xl border-b border-white/5 flex items-center px-4 text-[10px] font-terminal text-slate-500">ybm_ai@enterprise:~/risk_assessment$</div>
+                <textarea id="intelInput" class="w-full h-40 bg-[#0d1117] rounded-xl pt-12 pb-6 px-6 text-sm font-terminal text-green-400 border border-white/10 outline-none focus:border-orange-500/40 resize-none" placeholder="> Enter observation..."></textarea>
             </div>
+            <button id="analyzeBtn" onclick="executeAIAudit()" class="w-full md:w-auto px-12 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-all uppercase tracking-widest text-xs">Execute Analysis</button>
         </section>
 
-        <div id="loadingState" class="hidden glass-panel rounded-[2rem] p-16 text-center border border-white/5 flex-col items-center justify-center">
-            <div class="relative w-16 h-16 mb-6">
-                <div class="absolute inset-0 rounded-full border-t-2 border-orange-500 animate-spin"></div>
-                <div class="absolute inset-0 flex items-center justify-center text-[10px] text-white font-terminal">AI</div>
-            </div>
-            <p id="loadingText" class="text-xs font-terminal text-orange-400 uppercase tracking-widest bg-orange-500/10 px-4 py-2 rounded border border-orange-500/20">Synthesizing Vectors...</p>
+        <div id="loadingState" class="hidden flex-col items-center justify-center py-12">
+            <div class="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p class="text-xs font-terminal text-orange-500 uppercase tracking-widest">Neural Processing...</p>
         </div>
 
         <div id="auditDashboard" class="hidden flex flex-col gap-6 animate-fade-in">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div id="scoreCard" class="glass-panel p-8 rounded-[2rem] border-t-4 flex flex-col justify-center items-center text-center glass-card"></div>
-                <div id="summaryCard" class="glass-panel p-8 rounded-[2rem] lg:col-span-3 flex flex-col justify-center glass-card"></div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div id="scoreCard" class="glass-panel p-8 rounded-3xl flex flex-col items-center justify-center border-t-4"></div>
+                <div id="summaryCard" class="glass-panel p-8 rounded-3xl md:col-span-3 flex flex-col justify-center"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-8 rounded-[1.5rem] glass-card"><h3 class="text-white font-900 text-[10px] uppercase mb-6 flex items-center gap-2"><div class="w-1 h-4 bg-red-500 rounded-full"></div> Mandatory Directives</h3><ul id="tacticalList" class="space-y-4 text-slate-300 text-sm font-medium"></ul></div>
-                <div class="glass-panel p-8 rounded-[1.5rem] glass-card"><h3 class="text-white font-900 text-[10px] uppercase mb-6 flex items-center gap-2"><div class="w-1 h-4 bg-blue-500 rounded-full"></div> Compliance Mapping</h3><ul id="complianceList" class="space-y-4 text-slate-300 text-sm font-terminal"></ul></div>
-                <div class="glass-panel p-8 rounded-[1.5rem] glass-card"><h3 class="text-white font-900 text-[10px] uppercase mb-6 flex items-center gap-2"><div class="w-1 h-4 bg-orange-500 rounded-full"></div> Human Factor Analysis</h3><p id="behavioralText" class="text-slate-300 text-sm leading-relaxed font-medium"></p></div>
+                <div class="glass-panel p-6 rounded-2xl"><h3 class="text-white font-900 text-[10px] uppercase mb-4 text-red-500">Directives</h3><ul id="tacticalList" class="space-y-3 text-slate-300 text-sm"></ul></div>
+                <div class="glass-panel p-6 rounded-2xl"><h3 class="text-white font-900 text-[10px] uppercase mb-4 text-blue-500">Compliance</h3><ul id="complianceList" class="space-y-3 text-slate-300 text-sm font-terminal"></ul></div>
+                <div class="glass-panel p-6 rounded-2xl"><h3 class="text-white font-900 text-[10px] uppercase mb-4 text-orange-500">Human Factor</h3><p id="behavioralText" class="text-slate-300 text-sm leading-relaxed"></p></div>
             </div>
-            <div id="strategyPanel" class="glass-panel p-8 md:p-10 rounded-[2rem] border border-white/5 glass-card bg-gradient-to-br from-white/[0.02] to-transparent"></div>
         </div>
     </main>
 
-    <footer class="border-t border-white/5 py-8 mt-auto bg-[#030712]"><div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-[9px] font-terminal text-slate-600 uppercase tracking-widest"><span>Architect: Youssef ben moussa</span><span>YBM_AI v14.0</span></div></footer>
+    <footer class="py-8 text-center text-[10px] text-slate-600 font-terminal uppercase tracking-widest border-t border-white/5">Architect: Youssef ben moussa | YBM_AI v14.0</footer>
 
     <script>
-        // ==========================================
-        // YBM_AI PRODUCTION CONFIG
-        // ==========================================
-        const GEMINI_API_KEY = "PASTE_YOUR_NEW_KEY_HERE";
+        const GEMINI_API_KEY = "AIzaSyA4MCtkLNZrDVOLgZ5M9mRTr4eXPsXxTF4";
 
         async function executeAIAudit() {
             const raw = document.getElementById('intelInput').value.trim();
-            if (raw.length < 3) return;
+            if (raw.length < 5) return;
 
             document.getElementById('auditDashboard').classList.add('hidden');
-            document.getElementById('loadingState').classList.replace('hidden', 'flex');
+            document.getElementById('loadingState').classList.remove('hidden');
             const btn = document.getElementById('analyzeBtn');
             btn.disabled = true;
 
             try {
                 const aiData = await callGeminiAPI(raw);
-                document.getElementById('loadingState').classList.replace('flex', 'hidden');
-                btn.disabled = false;
                 renderDashboard(aiData);
             } catch (error) {
-                console.error("AI Core Error:", error);
-                alert("Neural Link Interrupted. Verify API Key or Region.");
-                document.getElementById('loadingState').classList.replace('flex', 'hidden');
+                console.error(error);
+                alert("Critical System Error. Check API status.");
+            } finally {
+                document.getElementById('loadingState').classList.add('hidden');
                 btn.disabled = false;
             }
         }
 
         async function callGeminiAPI(userInput) {
-            const systemPrompt = `You are YBM_AI. Analyze HSSE risk. Output ONLY valid JSON:
-            { "score": 0-100, "label": "LEVEL", "domains": [], "actions": [], "stds": [], "humanFactor": "", "isNominal": bool, "riskColor": "red/orange/emerald" }`;
-
             const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            
+            const promptText = `You are an HSSE Auditor AI. Analyze this observation: "${userInput}". 
+            Respond ONLY with a JSON object in this format: 
+            {"score": 85, "label": "CRITICAL", "domains": ["Safety"], "actions": ["Action 1"], "stds": ["ISO 45001"], "humanFactor": "Text", "riskColor": "red"}`;
 
             const response = await fetch(url, {
                 method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: systemPrompt + "\n\nInput: " + userInput }] }],
-                    generationConfig: { response_mime_type: "application/json", temperature: 0.1 }
+                    contents: [{ parts: [{ text: promptText }] }]
                 })
             });
 
-            if (!response.ok) throw new Error("Connection Refused");
+            if (!response.ok) throw new Error("API call failed");
             const data = await response.json();
-            return JSON.parse(data.candidates[0].content.parts[0].text);
+            const textResponse = data.candidates[0].content.parts[0].text;
+            return JSON.parse(textResponse.replace(/```json/g, "").replace(/```/g, ""));
         }
 
         function renderDashboard(data) {
-            const color = data.riskColor === 'green' ? 'emerald' : data.riskColor;
             document.getElementById('auditDashboard').classList.remove('hidden');
+            const color = data.riskColor === 'green' ? 'emerald' : data.riskColor;
             
-            document.getElementById('scoreCard').className = `glass-panel p-8 rounded-[2rem] border-t-4 border-${color}-500 flex flex-col justify-center items-center text-center glass-card`;
-            document.getElementById('scoreCard').innerHTML = `<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Risk Index</span><div class="text-7xl font-900 text-white">${data.score}</div><span class="text-${color}-500 font-black text-[10px] uppercase mt-2">${data.label}</span>`;
+            document.getElementById('scoreCard').className = `glass-panel p-8 rounded-3xl flex flex-col items-center justify-center border-t-4 border-${color}-500`;
+            document.getElementById('scoreCard').innerHTML = `<span class="text-[10px] text-slate-500 uppercase mb-2">Risk Score</span><div class="text-6xl font-900 text-white">${data.score}</div><span class="text-${color}-500 font-bold text-[10px] mt-2">${data.label}</span>`;
             
-            document.getElementById('summaryCard').innerHTML = `<h3 class="text-2xl font-800 text-white mb-3 uppercase tracking-tighter">Vector: [ ${data.domains.join(' + ')} ]</h3><p class="text-slate-400 text-sm font-medium">${data.isNominal ? 'Operation validated by AI Core.' : 'Critical systemic vulnerabilities identified.'}</p>`;
+            document.getElementById('summaryCard').innerHTML = `<h3 class="text-xl font-800 text-white mb-2 uppercase">Analysis Result: [ ${data.domains.join(' + ')} ]</h3><p class="text-slate-400 text-sm font-medium leading-relaxed">Intelligence core has identified systemic irregularities requiring immediate tactical focus.</p>`;
             
-            document.getElementById('tacticalList').innerHTML = data.actions.map(a => `<li class="flex gap-3"><span>›</span> ${a}</li>`).join('');
-            document.getElementById('complianceList').innerHTML = data.stds.map(s => `<li class="flex gap-3"><span class="text-blue-500">#</span> ${s}</li>`).join('');
+            document.getElementById('tacticalList').innerHTML = data.actions.map(a => `<li>• ${a}</li>`).join('');
+            document.getElementById('complianceList').innerHTML = data.stds.map(s => `<li># ${s}</li>`).join('');
             document.getElementById('behavioralText').innerText = data.humanFactor;
             
-            document.getElementById('strategyPanel').innerHTML = `<div class="flex items-center gap-4 mb-6"><div class="h-1 w-12 bg-white"></div><h3 class="text-white font-900 text-[10px] uppercase">Root Cause Inference Engine</h3></div><p class="text-slate-400 text-sm leading-relaxed italic font-medium">The generative model infers a breakdown in the barrier management system and organizational safety culture.</p>`;
-            
-            setTimeout(() => { window.scrollTo({ top: document.getElementById('auditDashboard').offsetTop - 20, behavior: 'smooth' }); }, 100);
+            window.scrollTo({ top: document.getElementById('auditDashboard').offsetTop - 20, behavior: 'smooth' });
         }
     </script>
 </body>
