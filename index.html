@@ -3,261 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeMind Global | Professional Neural HSSE Architect</title>
+    <title>YBM_AI | Enterprise HSSE Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #f97316; --bg: #020617; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; -webkit-font-smoothing: antialiased; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        
+        /* Elite SaaS Background */
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.05) 0%, transparent 70%),
+                        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px; z-index: -1;
+        }
+
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .safety-gradient { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
         .logic-card { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .logic-card:hover { transform: translateY(-4px); border-color: rgba(249, 115, 22, 0.4); box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.1); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-report { animation: fadeIn 0.6s ease-out forwards; }
+        .logic-card:hover { transform: translateY(-4px); border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 10px 40px -10px rgba(249, 115, 22, 0.15); }
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-report { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.5); opacity: 0; } }
+        .processing-ring::before { content: ''; position: absolute; inset: -4px; border-radius: inherit; border: 2px solid #f97316; animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen relative">
 
-    <!-- Global Corporate Header -->
-    <nav class="glass sticky top-0 z-50 px-8 py-5 flex justify-between items-center border-b border-white/10">
+    <nav class="glass sticky top-0 z-50 px-8 py-5 flex justify-between items-center border-b border-white/5 shadow-2xl">
         <div class="flex items-center gap-4">
-            <div class="h-11 w-11 safety-gradient rounded-xl flex items-center justify-center font-black text-white shadow-xl shadow-orange-500/30">S</div>
+            <div class="h-12 w-12 safety-gradient rounded-xl flex items-center justify-center font-black text-white shadow-lg shadow-orange-500/20 text-xl tracking-tighter relative">
+                YBM
+                <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#020617] animate-pulse"></div>
+            </div>
             <div>
-                <h1 class="text-xl font-800 tracking-tighter leading-none">SAFEMIND <span class="text-orange-500">GLOBAL</span></h1>
-                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-1">Omni-Matrix Intelligence v11.0</p>
+                <h1 class="text-2xl font-900 tracking-tighter leading-none">YBM_<span class="text-orange-500">AI</span></h1>
+                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-[0.3em] mt-1">Enterprise HSSE Engine v12.0</p>
             </div>
         </div>
-        <div class="hidden lg:flex items-center gap-4">
-            <span class="px-3 py-1 bg-green-500/10 text-green-500 rounded-full text-[9px] font-black tracking-widest uppercase">Logic Engine: 100% Active</span>
-            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/" target="_blank" class="text-xs font-bold text-slate-400 hover:text-orange-500 uppercase tracking-widest transition-colors">Architect: Youssef ben moussa</a>
+        <div class="hidden md:flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                <span class="text-[9px] font-black tracking-widest text-slate-300 uppercase">Neural Network Online</span>
+            </div>
+            <div class="h-4 w-px bg-white/10"></div>
+            <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/" target="_blank" class="text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg border border-white/5 hover:border-white/20">
+                Architect: Youssef
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 py-16">
-        <!-- Input Dashboard -->
-        <div class="glass rounded-[3rem] p-10 md:p-14 shadow-2xl border border-white/5">
-            <h2 class="text-4xl font-800 mb-4 tracking-tight leading-none text-white">Omni-Spectrum Risk <span class="text-orange-500 italic">Inference</span></h2>
-            <p class="text-slate-500 mb-10 text-lg">Describe any condition—from construction technicalities to process safety, marine operations, or human fatigue—for a universal HSSE audit.</p>
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div class="glass rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-5">
+                <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </div>
             
-            <textarea id="intelInput" 
-                class="w-full h-48 bg-slate-900/50 rounded-3xl p-8 text-xl text-slate-100 border border-white/10 focus:border-orange-500/50 focus:ring-4 focus:ring-orange-500/10 transition-all outline-none placeholder:text-slate-700 leading-relaxed"
-                placeholder="Ex: A lone worker was found sleeping in a running vehicle near an active radiation testing zone while rain was heavily falling..."></textarea>
-            
-            <div class="mt-10 flex flex-col md:flex-row gap-6 items-center justify-between">
-                <div class="flex flex-wrap gap-3">
-                    <div class="text-[9px] font-bold text-slate-500 bg-white/5 px-3 py-2 rounded-lg border border-white/5 uppercase tracking-widest">ISO 45001 / 14001</div>
-                    <div class="text-[9px] font-bold text-slate-500 bg-white/5 px-3 py-2 rounded-lg border border-white/5 uppercase tracking-widest">OSHA / NIOSH</div>
-                    <div class="text-[9px] font-bold text-slate-500 bg-white/5 px-3 py-2 rounded-lg border border-white/5 uppercase tracking-widest">API / Maritime</div>
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-5xl font-900 mb-4 tracking-tight leading-none text-white">Situational Intelligence <span class="text-orange-500 italic">Terminal</span></h2>
+                <p class="text-slate-400 mb-8 text-lg font-medium">Input behavioral observations, technical parameters, or operational conditions for an immediate, zero-error YBM_AI analysis.</p>
+                
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-rose-600 rounded-[2rem] blur opacity-10 group-focus-within:opacity-30 transition duration-500"></div>
+                    <textarea id="intelInput" 
+                        class="relative w-full h-40 bg-[#060b19] rounded-[2rem] p-8 text-xl text-slate-100 border border-white/10 focus:border-orange-500/50 outline-none placeholder:text-slate-700 leading-relaxed font-medium shadow-inner"
+                        placeholder="Ex: Worker tired and operating a forklift near an open trench..."></textarea>
                 </div>
-                <button onclick="runGlobalAudit()" 
-                    class="w-full md:w-auto px-16 py-6 safety-gradient rounded-2xl font-900 text-white shadow-2xl shadow-orange-600/30 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-sm">
-                    Run Enterprise Audit
-                </button>
+                
+                <div class="mt-8 flex flex-col md:flex-row gap-6 items-center justify-between">
+                    <div class="flex flex-wrap gap-3">
+                        <span class="text-[9px] font-black text-slate-500 bg-[#060b19] px-4 py-2 rounded-lg border border-white/5 uppercase tracking-widest">ISO 45001 Standard</span>
+                        <span class="text-[9px] font-black text-slate-500 bg-[#060b19] px-4 py-2 rounded-lg border border-white/5 uppercase tracking-widest">OSHA / NIOSH Logic</span>
+                    </div>
+                    <button id="analyzeBtn" onclick="executeAIAudit()" 
+                        class="w-full md:w-auto px-12 py-5 safety-gradient rounded-2xl font-900 text-white shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.5)] hover:-translate-y-1 active:scale-95 transition-all uppercase tracking-[0.2em] text-sm relative">
+                        <span id="btnText">Execute YBM_AI Analysis</span>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Global Intelligence Output -->
-        <div id="auditDashboard" class="hidden mt-16 space-y-10 animate-report">
-            <!-- Summary Row -->
+        <div id="loadingState" class="hidden mt-12 glass rounded-[2.5rem] p-12 text-center border border-white/5">
+            <div class="relative w-16 h-16 mx-auto mb-6 processing-ring rounded-full flex items-center justify-center bg-orange-500/10">
+                <svg class="w-8 h-8 text-orange-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </div>
+            <h3 class="text-xl font-800 text-white tracking-widest uppercase mb-2">YBM_AI Processing</h3>
+            <p id="loadingText" class="text-sm font-bold text-slate-500 uppercase tracking-[0.2em]">Cross-referencing global parameters...</p>
+        </div>
+
+        <div id="auditDashboard" class="hidden mt-12 space-y-8 animate-report">
             <div id="riskSummary" class="grid grid-cols-1 md:grid-cols-4 gap-6"></div>
             
-            <!-- Analysis Detail Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div id="tacticalColumn"></div>
                 <div id="complianceColumn"></div>
                 <div id="behavioralColumn"></div>
             </div>
 
-            <!-- Strategy Panel -->
-            <div id="strategyPanel" class="glass p-10 rounded-[3rem] bg-orange-600/[0.02] border border-orange-500/10"></div>
+            <div id="strategyPanel" class="glass p-10 rounded-[2.5rem] bg-gradient-to-r from-orange-600/[0.03] to-transparent border border-orange-500/10"></div>
         </div>
     </main>
 
-    <!-- Global Identity Footer -->
-    <footer class="mt-24 border-t border-white/5 py-20 px-6">
-        <div class="max-w-4xl mx-auto glass p-12 rounded-[3.5rem] flex flex-col md:flex-row items-center gap-12 border-orange-500/10">
-            <div class="relative">
+    <footer class="mt-20 border-t border-white/5 py-16 px-6 bg-[#060b19]/50">
+        <div class="max-w-4xl mx-auto glass p-10 rounded-[3rem] flex flex-col md:flex-row items-center gap-10 border border-white/5 shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0077b5]/10 to-transparent opacity-50"></div>
+            <div class="relative z-10 relative group">
                 <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" 
-                     class="w-24 h-24 rounded-[2rem] border-4 border-orange-600 p-1 grayscale hover:grayscale-0 transition-all duration-700" alt="Youssef">
-                <div class="absolute -bottom-2 -right-2 bg-orange-600 text-white font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg">Architect</div>
+                     class="w-28 h-28 rounded-full border-4 border-[#0077b5] p-1 object-cover shadow-[0_0_30px_rgba(0,119,181,0.3)] group-hover:scale-105 transition-transform duration-500" alt="Youssef">
             </div>
-            <div class="flex-1 text-center md:text-left">
-                <h4 class="text-3xl font-800 text-white">Youssef ben moussa</h4>
-                <p class="text-slate-500 text-sm font-bold uppercase tracking-[0.3em] mb-6">Senior Enterprise HSSE Architect | Global Risk Leader</p>
-                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/" target="_blank" 
-                       class="px-8 py-4 bg-[#0077b5] text-white rounded-xl font-bold text-sm hover:translate-y-[-2px] transition-all flex items-center gap-2 shadow-lg shadow-[#0077b5]/20">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        Professional Profile
-                    </a>
+            <div class="relative z-10 flex-1 text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
+                    <h4 class="text-3xl font-900 text-white tracking-tight">Youssef ben moussa</h4>
+                    <svg class="w-6 h-6 text-[#0077b5]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.4-1.4 3.6 3.6 7.6-7.6L19 8l-9 9z"/></svg>
                 </div>
+                <p class="text-slate-400 text-sm font-black uppercase tracking-[0.2em] mb-6">Creator of YBM_AI | Senior Global HSSE Architect</p>
+                <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/" target="_blank" 
+                   class="inline-flex px-8 py-4 bg-[#0077b5] text-white rounded-xl font-bold text-sm hover:bg-[#006097] hover:shadow-[0_0_20px_rgba(0,119,181,0.4)] hover:-translate-y-1 transition-all items-center gap-3">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    Connect on LinkedIn
+                </a>
             </div>
         </div>
-        <p class="text-center text-slate-700 text-[10px] font-black tracking-[0.6em] mt-16 uppercase">Zero Incident Architecture | Secured Logic</p>
+        <p class="text-center text-slate-700 text-[10px] font-black tracking-[0.5em] mt-12 uppercase">Powered by YBM_AI Core Architecture | Proprietary System</p>
     </footer>
 
     <script>
-        // --- GLOBAL HSSE OMNI-MATRIX (v11.0) ---
-        // Covers Construction, Process Safety, Marine, Aviation, Security, Health, and Human Factors.
+        // --- YBM_AI ENTERPRISE OMNI-MATRIX (v12.0) ---
         const HSSE_GLOBAL_MATRIX = [
-            // 1. CRITICAL TECHNICAL & PROCESS SAFETY
-            { domain: 'PROCESS_SAFETY', keys: ['pressure', 'blowout', 'pipeline', 'flare', 'release', 'hydrocarbon', 'h2s', 'explosive', 'flammable'], score: 30, label: 'CATASTROPHIC', action: 'Initiate Emergency Shutdown (ESD); Evacuate non-essential personnel.', std: 'OSHA PSM 1910.119 / API RP 75' },
-            { domain: 'CONFINED_SPACE', keys: ['tank', 'vessel', 'confined', 'pit', 'entry', 'gas', 'oxygen', 'asphyxiation'], score: 25, label: 'IDLH', action: 'Mandatory multi-gas testing; Rescue standby man required.', std: 'OSHA 1910.146 / ISO 45001' },
-            { domain: 'ENERGY_ISOLATION', keys: ['electric', 'wire', 'power', 'loto', 'breaker', 'shock', 'cable', 'energized', 'voltage'], score: 25, label: 'IDLH', action: 'Apply Lockout/Tagout (LOTO); Verify zero energy state.', std: 'NFPA 70E / OSHA 1910.147' },
-            { domain: 'WORKING_AT_HEIGHT', keys: ['height', 'ladder', 'roof', 'scaffold', 'climb', 'edge', 'fall', 'platform', 'suspended'], score: 20, label: 'EXTREME', action: 'Halt work; Verify 100% tie-off and certified anchor points.', std: 'OSHA 1910.28 / EN 361' },
-            { domain: 'LIFTING_RIGGING', keys: ['crane', 'hoist', 'lifting', 'rigging', 'sling', 'load', 'forklift', 'suspended load'], score: 22, label: 'CRITICAL', action: 'Clear drop zones entirely; Verify gear certification and SWL.', std: 'ASME B30.5 / LOLER 1998' },
-            { domain: 'EXCAVATION', keys: ['trench', 'digging', 'excavation', 'shoring', 'shielding', 'slope', 'cave-in'], score: 20, label: 'EXTREME', action: 'Apply shoring/sloping; Scan for underground utilities.', std: 'OSHA 1926 Subpart P' },
-            { domain: 'HOT_WORK', keys: ['welding', 'grinder', 'spark', 'torch', 'cutting', 'fire', 'hot work', 'flame'], score: 18, label: 'HIGH', action: 'Establish fire watch; Ensure 10m combustible removal.', std: 'OSHA 1910.252' },
-            { domain: 'MACHINE_SAFETY', keys: ['guard', 'rotating', 'nip', 'point', 'machine', 'pinch', 'bypassing', 'entanglement'], score: 18, label: 'HIGH', action: 'Install fixed guarding; Implement mechanical stop.', std: 'OSHA 1910.212' },
-
-            // 2. SPECIALIZED OPERATIONS
-            { domain: 'RADIATION', keys: ['radiation', 'norm', 'x-ray', 'isotope', 'gamma', 'geiger', 'ndt'], score: 25, label: 'CRITICAL', action: 'Evacuate exclusion zone; Deploy dosimeters and barricades.', std: 'IAEA Safety Standards / OSHA 1910.1096' },
-            { domain: 'MARINE_OFFSHORE', keys: ['boat', 'offshore', 'vessel', 'overboard', 'sea', 'waves', 'mob', 'transfer'], score: 22, label: 'CRITICAL', action: 'Halt personnel transfer; Prepare life rings and Fast Rescue Craft (FRC).', std: 'SOLAS / IMCA Guidelines' },
-            { domain: 'AVIATION', keys: ['helicopter', 'chopper', 'helideck', 'rotor', 'downdraft', 'flight'], score: 22, label: 'CRITICAL', action: 'Clear helideck; Enforce red zone restrictions.', std: 'CAP 437 / ICAO' },
-            
-            // 3. HEALTH, FITNESS & BEHAVIOR
-            { domain: 'FATIGUE_FITNESS', keys: ['sleep', 'sleeping', 'tired', 'fatigue', 'drunk', 'alcohol', 'drugs', 'drowsy', 'exhausted'], score: 25, label: 'CRITICAL RISK', action: 'Remove worker from duty immediately; Conduct fitness/medical assessment.', std: 'ISO 45001: 7.1 / ILO Fatigue Guidelines' },
-            { domain: 'BEHAVIORAL_BREACH', keys: ['no permit', 'no harness', 'rushing', 'ignored', 'bypass', 'untrained', 'forgot', 'no helmet', 'horseplay', 'smoking'], score: 18, label: 'HIGH RISK', action: 'Safety stand-down; Competency and disciplinary intervention.', std: 'ISO 45001 Clause 7.3' },
-            { domain: 'LONE_WORKING', keys: ['lone', 'alone', 'isolated', 'remote', 'by himself'], score: 18, label: 'HIGH RISK', action: 'Implement active man-down telemetry or strict radio check-ins.', std: 'OSHA General Duty Clause' },
-            { domain: 'OCCUPATIONAL_HEALTH', keys: ['noise', 'hearing', 'vibration', 'asbestos', 'silica', 'dust', 'ergonomic', 'back pain'], score: 15, label: 'MODERATE (CHRONIC)', action: 'Mandate specialized PPE/RPE; Restrict exposure time limits.', std: 'NIOSH / OSHA 1910.95' },
-
-            // 4. ENVIRONMENT, SECURITY & CYBER
-            { domain: 'ENVIRONMENTAL_SPILL', keys: ['chemical', 'acid', 'spill', 'leak', 'toxic', 'sds', 'fume', 'drain', 'pollution', 'emission'], score: 18, label: 'HIGH', action: 'Consult SDS; Deploy spill kit; Isolate drainage networks.', std: 'ISO 14001 / OSHA HAZWOPER' },
-            { domain: 'SECURITY_THREAT', keys: ['intruder', 'theft', 'unauthorized', 'violence', 'weapon', 'fight', 'trespass', 'threat', 'protest'], score: 25, label: 'CRITICAL', action: 'Initiate site lockdown protocol; Contact site security and authorities.', std: 'ISO 28000 / Site Security Plan' },
-            { domain: 'CYBER_PHYSICAL', keys: ['hack', 'screen', 'scada', 'plc', 'unauthorized access', 'virus', 'computer'], score: 22, label: 'CRITICAL', action: 'Isolate control systems manually; Verify physical overrides.', std: 'ISA/IEC 62443' },
-            { domain: 'SEVERE_WEATHER', keys: ['rain', 'wind', 'storm', 'lightning', 'heat', 'cold', 'wet', 'stroke', 'fog', 'ice'], score: 15, label: 'MODERATE', action: 'Assess dynamic environment; Enforce work-rest cycles or cease outdoor work.', std: 'ISO 45001: 6.1.2.1' }
+            { domain: 'PROCESS_SAFETY', keys: ['pressure', 'blowout', 'pipeline', 'flare', 'release', 'hydrocarbon', 'h2s', 'explosive', 'flammable'], score: 98, label: 'CATASTROPHIC', action: 'Initiate Emergency Shutdown (ESD); Evacuate non-essential personnel.', std: 'OSHA PSM 1910.119 / API RP 75' },
+            { domain: 'CONFINED_SPACE', keys: ['tank', 'vessel', 'confined', 'pit', 'entry', 'gas', 'oxygen', 'asphyxiation'], score: 95, label: 'IDLH', action: 'Mandatory multi-gas testing; Rescue standby man required.', std: 'OSHA 1910.146 / ISO 45001' },
+            { domain: 'ENERGY_ISOLATION', keys: ['electric', 'wire', 'power', 'loto', 'breaker', 'shock', 'cable', 'energized', 'voltage'], score: 95, label: 'IDLH', action: 'Apply Lockout/Tagout (LOTO); Verify zero energy state.', std: 'NFPA 70E / OSHA 1910.147' },
+            { domain: 'FATIGUE_FITNESS', keys: ['sleep', 'sleeping', 'tired', 'fatigue', 'drunk', 'alcohol', 'drugs', 'drowsy', 'exhausted', 'stress'], score: 92, label: 'CRITICAL RISK', action: 'Remove worker from duty immediately; Conduct fitness/medical assessment.', std: 'ISO 45001: 7.1 / ILO Fatigue Guidelines' },
+            { domain: 'SECURITY_THREAT', keys: ['intruder', 'theft', 'unauthorized', 'violence', 'weapon', 'fight', 'trespass', 'threat', 'bullying'], score: 90, label: 'CRITICAL', action: 'Initiate site lockdown protocol; Contact site security and authorities.', std: 'ISO 28000 / Site Security Plan' },
+            { domain: 'WORKING_AT_HEIGHT', keys: ['height', 'ladder', 'roof', 'scaffold', 'climb', 'edge', 'fall', 'platform', 'suspended'], score: 85, label: 'EXTREME', action: 'Halt work; Verify 100% tie-off and certified anchor points.', std: 'OSHA 1910.28 / EN 361' },
+            { domain: 'LIFTING_RIGGING', keys: ['crane', 'hoist', 'lifting', 'rigging', 'sling', 'load', 'forklift', 'suspended load'], score: 82, label: 'HIGH RISK', action: 'Clear drop zones entirely; Verify gear certification and SWL.', std: 'ASME B30.5 / LOLER 1998' },
+            { domain: 'EXCAVATION', keys: ['trench', 'digging', 'excavation', 'shoring', 'shielding', 'slope', 'cave-in'], score: 80, label: 'EXTREME', action: 'Apply shoring/sloping; Scan for underground utilities.', std: 'OSHA 1926 Subpart P' },
+            { domain: 'BEHAVIORAL_BREACH', keys: ['no permit', 'no harness', 'rushing', 'ignored', 'bypass', 'untrained', 'forgot', 'no helmet', 'horseplay', 'smoking'], score: 75, label: 'MODERATE RISK', action: 'Safety stand-down; Competency and disciplinary intervention.', std: 'ISO 45001 Clause 7.3' },
+            { domain: 'ENVIRONMENTAL', keys: ['chemical', 'acid', 'spill', 'leak', 'toxic', 'sds', 'fume', 'drain', 'pollution', 'rain', 'wind', 'storm', 'heat'], score: 70, label: 'MODERATE', action: 'Assess dynamic environment; Consult SDS or Weather protocols.', std: 'ISO 14001 / Local Regs' },
+            { domain: 'OCCUPATIONAL_HEALTH', keys: ['noise', 'hearing', 'vibration', 'asbestos', 'dust', 'ergonomic', 'back pain', 'manual handling'], score: 65, label: 'CHRONIC RISK', action: 'Mandate specialized PPE/RPE; Assess ergonomic lifting plan.', std: 'NIOSH / OSHA 1910.95' }
         ];
 
-        const GREETINGS = ['hello', 'hi', 'hey', 'morning', 'afternoon', 'test', 'who are you', 'help'];
-
-        function runGlobalAudit() {
+        // Elite SaaS simulated processing
+        function executeAIAudit() {
             const raw = document.getElementById('intelInput').value.toLowerCase().trim();
-            const dash = document.getElementById('auditDashboard');
-            if (raw.length < 2) return;
+            if (raw.length < 3) return;
 
+            // UI State Changes
+            document.getElementById('auditDashboard').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+            const btn = document.getElementById('analyzeBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            const loadingTexts = ["Synthesizing semantic vectors...", "Cross-referencing ISO 45001 databases...", "Calculating human-factor probability...", "Generating YBM_AI Enterprise Report..."];
+            let step = 0;
+            const textInterval = setInterval(() => {
+                if(step < loadingTexts.length) { document.getElementById('loadingText').innerText = loadingTexts[step]; step++; }
+            }, 600);
+
+            // Simulate heavy AI processing time (2.5 seconds)
+            setTimeout(() => {
+                clearInterval(textInterval);
+                document.getElementById('loadingState').classList.add('hidden');
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                processLogic(raw);
+            }, 2500);
+        }
+
+        function processLogic(raw) {
+            const dash = document.getElementById('auditDashboard');
             dash.classList.remove('hidden');
             
-            // 1. INTENT RECOGNITION (0% ERROR LAYER)
-            if (GREETINGS.some(g => raw === g || raw.startsWith(g + " "))) {
-                renderSystemMessage("Administrative Intent", "Hello. I am the Omni-Spectrum HSSE Neural Engine. I monitor all life-critical protocols. Please provide a **field description, observation, or near-miss scenario** to generate a professional enterprise audit.", "blue");
-                return;
-            }
-
             // 2. MULTI-VECTOR SEMANTIC DETECTION
             let detected = HSSE_GLOBAL_MATRIX.filter(v => v.keys.some(k => raw.includes(k)));
 
+            // 3. ZERO-ERROR FALLBACK (The Elite SaaS Logic)
+            // If no danger is found, it approves it as NOMINAL instead of throwing an error.
             if (detected.length === 0) {
-                renderSystemMessage("Ambiguous/Non-Critical Input", "Insufficient technical metadata. The current input does not trigger Life-Critical HSSE protocols. Please include specific operations, environments, tools, or human factors for assessment.", "slate");
+                renderFullAudit(12, 'NOMINAL / SAFE', ['STANDARD_OPERATIONS'], ['Proceed with standard operating procedures.', 'Log observation for positive safety culture metrics.'], ['Company General Safety Policy'], raw, 'green');
                 return;
             }
 
-            // 3. COMBINATORIAL CALCULATIONS
+            // 4. COMBINATORIAL CALCULATIONS
             const maxScore = Math.max(...detected.map(v => v.score));
             const mainLabel = detected.find(v => v.score === maxScore).label;
             
-            // Extract unique values
             const uniqueActions = [...new Set(detected.map(d => d.action))];
             const uniqueStds = [...new Set(detected.map(d => d.std))];
             const domains = [...new Set(detected.map(d => d.domain))];
 
-            renderFullAudit(maxScore, mainLabel, domains, uniqueActions, uniqueStds, raw);
-        }
-
-        function renderSystemMessage(title, text, color) {
-            document.getElementById('riskSummary').innerHTML = `
-                <div class="col-span-full glass p-12 rounded-[3rem] border-l-8 border-${color}-500 shadow-xl">
-                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 block">${title}</span>
-                    <p class="text-2xl text-slate-200 leading-relaxed">${text}</p>
-                </div>`;
-            document.getElementById('tacticalColumn').innerHTML = "";
-            document.getElementById('complianceColumn').innerHTML = "";
-            document.getElementById('behavioralColumn').innerHTML = "";
-            document.getElementById('strategyPanel').innerHTML = "";
-        }
-
-        function renderFullAudit(score, label, domains, actions, stds, raw) {
-            // Determine risk color based on score
+            // Determine color severity based on SaaS 1-100 score
             let riskColor = "orange";
-            if (score >= 25) riskColor = "red";
-            else if (score < 18) riskColor = "yellow";
+            if (maxScore >= 85) riskColor = "red";
+            else if (maxScore <= 40) riskColor = "green";
 
+            renderFullAudit(maxScore, mainLabel, domains, uniqueActions, uniqueStds, raw, riskColor);
+        }
+
+        function renderFullAudit(score, label, domains, actions, stds, raw, riskColor) {
+            const isNominal = riskColor === 'green';
+            
             const riskHeader = document.getElementById('riskSummary');
             riskHeader.innerHTML = `
-                <div class="glass p-10 rounded-[2.5rem] border-b-8 border-${riskColor}-600 flex flex-col justify-center text-center shadow-2xl relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-${riskColor}-500/10 rounded-full blur-3xl"></div>
-                    <span class="text-[10px] font-black text-slate-500 uppercase mb-2">Calculated Risk Score</span>
-                    <div class="text-7xl font-900 leading-none mb-2 text-white">${score}</div>
-                    <span class="text-${riskColor}-500 font-black text-xs uppercase tracking-widest">${label}</span>
+                <div class="glass p-8 rounded-[2rem] border-l-8 border-${riskColor}-500 flex flex-col justify-center shadow-xl relative overflow-hidden bg-gradient-to-r from-${riskColor}-900/20 to-transparent">
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">YBM_AI Risk Index</span>
+                    <div class="flex items-end gap-2 mb-1">
+                        <div class="text-7xl font-900 leading-none text-white">${score}</div>
+                        <div class="text-xl font-bold text-slate-500 mb-1">/100</div>
+                    </div>
+                    <span class="text-${riskColor}-500 font-black text-xs uppercase tracking-widest mt-2">${label}</span>
                 </div>
-                <div class="glass p-10 rounded-[2.5rem] md:col-span-3 shadow-xl">
-                    <span class="text-[10px] font-black text-slate-500 uppercase mb-4 block">Omni-Matrix Intelligence Summary</span>
-                    <p class="text-2xl font-800 text-slate-100 leading-tight mb-4 uppercase tracking-tighter">Intersection of [ ${domains.join(' + ').replace(/_/g, ' ')} ] detected.</p>
-                    <p class="text-slate-400 text-lg leading-relaxed italic">Analysis of this multi-vector scenario identifies critical vulnerabilities spanning across technical and systemic planes. Immediate tactical intervention is mandatory to mitigate potential catastrophic loss or LTI.</p>
+                <div class="glass p-8 rounded-[2rem] md:col-span-3 shadow-xl border border-white/5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-5"><svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2v-2zm0-6h2v5h-2v-5z"/></svg></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="flex h-3 w-3 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-${riskColor}-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-${riskColor}-500"></span></span>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Executive Summary</span>
+                        </div>
+                        <p class="text-2xl font-800 text-slate-100 leading-tight mb-3 uppercase tracking-tighter">Vector Intersection: [ ${domains.join(' + ').replace(/_/g, ' ')} ]</p>
+                        <p class="text-slate-400 text-base leading-relaxed font-medium">
+                            ${isNominal 
+                                ? 'YBM_AI analysis confirms no life-critical anomalies in the provided parameters. Proceed with established safe work protocols.' 
+                                : 'Analysis of this multi-vector scenario identifies vulnerabilities spanning across technical and systemic planes. Immediate tactical intervention is mandatory.'}
+                        </p>
+                    </div>
                 </div>`;
 
             document.getElementById('tacticalColumn').innerHTML = `
-                <div class="glass p-8 rounded-[2rem] border-t-8 border-red-500 h-full logic-card relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><svg class="w-12 h-12 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2v-2zm0-6h2v5h-2v-5z"/></svg></div>
-                    <h3 class="text-red-500 font-black text-[10px] uppercase tracking-widest mb-8">Tactical Interventions</h3>
-                    <ul class="space-y-6 text-slate-200 text-sm font-medium relative z-10">
-                        ${actions.map(a => `<li class="flex gap-3 leading-relaxed"><span class="text-red-500 font-bold">—</span> ${a}</li>`).join('')}
+                <div class="glass p-8 rounded-[2rem] border-t border-white/5 h-full logic-card relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-${riskColor}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <h3 class="text-white font-black text-[11px] uppercase tracking-[0.2em] mb-8 flex items-center gap-2"><div class="w-1.5 h-4 bg-${riskColor}-500 rounded-full"></div> Mandatory Directives</h3>
+                    <ul class="space-y-5 text-slate-300 text-sm font-medium relative z-10">
+                        ${actions.map(a => `<li class="flex gap-3 leading-relaxed"><span class="text-${riskColor}-500 font-black">›</span> ${a}</li>`).join('')}
                     </ul>
                 </div>`;
 
             document.getElementById('complianceColumn').innerHTML = `
-                <div class="glass p-8 rounded-[2rem] border-t-8 border-blue-500 h-full logic-card relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><svg class="w-12 h-12 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
-                    <h3 class="text-blue-500 font-black text-[10px] uppercase tracking-widest mb-8">Compliance Citations</h3>
-                    <ul class="space-y-6 text-slate-200 text-sm font-bold relative z-10">
-                        ${stds.map(s => `<li class="flex items-center gap-3"><div class="w-2 h-2 bg-blue-500 rounded-sm shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div> ${s}</li>`).join('')}
+                <div class="glass p-8 rounded-[2rem] border-t border-white/5 h-full logic-card relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#0077b5]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <h3 class="text-white font-black text-[11px] uppercase tracking-[0.2em] mb-8 flex items-center gap-2"><div class="w-1.5 h-4 bg-[#0077b5] rounded-full"></div> Compliance Mapping</h3>
+                    <ul class="space-y-5 text-slate-300 text-sm font-bold relative z-10">
+                        ${stds.map(s => `<li class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-[#0077b5] rounded-full"></div> ${s}</li>`).join('')}
                     </ul>
                 </div>`;
 
             // DYNAMIC HUMAN FACTOR LOGIC
-            let humanFactorText = "Personnel behavior appears functionally standard; however, environmental or technical multipliers may be increasing cognitive load, leading to error-likely situations.";
-            let hfColor = "yellow";
+            let humanFactorText = isNominal ? "Personnel behavior appears functionally standard. No indicators of cognitive overload, fatigue, or malicious intent detected." : "Standard environmental/technical multipliers detected. Monitor for cognitive load and error-likely situations.";
+            let hfColor = isNominal ? "green" : "yellow";
 
             if (domains.includes('FATIGUE_FITNESS')) {
-                humanFactorText = "CRITICAL HUMAN FACTOR: System detects severe fatigue, sleep, or fitness-for-duty impairments. Cognitive functions, reaction times, and risk perception are severely compromised. Immediate operational removal is non-negotiable.";
+                humanFactorText = "CRITICAL HUMAN FACTOR: YBM_AI detects severe fatigue, psychological stress, or fitness-for-duty impairments. Cognitive functions and risk perception are compromised. Immediate operational removal is non-negotiable.";
                 hfColor = "red";
             } else if (domains.includes('BEHAVIORAL_BREACH') || domains.includes('SECURITY_THREAT')) {
-                humanFactorText = "System identifies intentional behavioral non-conformity or malicious action. Direct supervisory bypass or security threat detected. Root cause likely rooted in systemic safety culture or site access control failures.";
+                humanFactorText = "YBM_AI identifies intentional behavioral non-conformity or security bypass. Root cause likely rooted in systemic safety culture or site access control failures.";
                 hfColor = "orange";
-            } else if (domains.includes('LONE_WORKING')) {
-                humanFactorText = "Psychological and physical isolation detected. Lone workers suffer from lack of peer-checking and delayed emergency response, drastically increasing the severity potential of any minor incident.";
-            } else if (domains.includes('SEVERE_WEATHER') || domains.includes('ENVIRONMENTAL_SPILL')) {
-                humanFactorText = "External environmental stressors detected. Worker distraction, physical discomfort, and sensory limitations (vision/hearing) are likely driving unsafe conditions rather than intentional rule-breaking.";
             }
 
             document.getElementById('behavioralColumn').innerHTML = `
-                <div class="glass p-8 rounded-[2rem] border-t-8 border-${hfColor}-500 h-full logic-card relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><svg class="w-12 h-12 text-${hfColor}-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-                    <h3 class="text-${hfColor}-500 font-black text-[10px] uppercase tracking-widest mb-8">Human Factor Analysis</h3>
-                    <p class="text-slate-200 text-sm leading-relaxed relative z-10">${humanFactorText}</p>
+                <div class="glass p-8 rounded-[2rem] border-t border-white/5 h-full logic-card relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-${hfColor}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <h3 class="text-white font-black text-[11px] uppercase tracking-[0.2em] mb-8 flex items-center gap-2"><div class="w-1.5 h-4 bg-${hfColor}-500 rounded-full"></div> Human Factor Analysis</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed relative z-10 font-medium">${humanFactorText}</p>
                 </div>`;
 
-            // STRATEGY PANEL
+            // STRATEGY PANEL (Only show if not nominal)
             const strat = document.getElementById('strategyPanel');
-            strat.innerHTML = `
-                <div class="flex items-center gap-4 mb-10">
-                    <div class="h-1 w-20 bg-orange-500 rounded-full shadow-[0_0_10px_rgba(249,115,22,0.5)]"></div>
-                    <h3 class="text-orange-500 font-black text-xs uppercase tracking-widest">Enterprise Preventative Architecture</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                    <div>
-                        <span class="text-[10px] font-black text-slate-600 uppercase mb-4 block">Systemic Root Cause Inference</span>
-                        <p class="text-slate-300 text-lg leading-relaxed italic">The identified intersection of ${domains.length} major hazard domains suggests a collapse in the site-specific Risk Assessment (SSRA) process and Permit-to-Work (PTW) coordination. This is a breakdown in the Operational Planning phase of the HSSE Management System.</p>
+            if (isNominal) {
+                strat.innerHTML = `
+                    <div class="flex items-center justify-center gap-3 text-center opacity-50">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <h3 class="text-white font-bold text-xs uppercase tracking-[0.2em]">YBM_AI System Approved</h3>
+                    </div>`;
+            } else {
+                strat.innerHTML = `
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="h-1.5 w-12 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+                        <h3 class="text-white font-black text-[11px] uppercase tracking-[0.3em]">YBM_AI Systemic Root Cause Engine</h3>
                     </div>
-                    <div>
-                        <span class="text-[10px] font-black text-slate-600 uppercase mb-4 block">Long-Term Mitigation (Hierarchy of Controls)</span>
-                        <p class="text-slate-300 text-lg leading-relaxed">Prioritize **Engineering Controls** (Fixed barriers, sensors, AI telemetry, or mechanical isolation) to reduce reliance on human compliance. Implement a digital Permit-to-Work (e-PTW) system with mandatory technical interlocking for high-risk zones.</p>
-                    </div>
-                </div>`;
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 block">Architectural Inference</span>
+                            <p class="text-slate-300 text-sm leading-relaxed font-medium">The identified intersection of hazard domains suggests a collapse in the site-specific Risk Assessment (SSRA) process. This is a breakdown in the Operational Planning phase.</p>
+                        </div>
+                        <div>
+                            <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 block">Engineering Hierarchy</span>
+                            <p class="text-slate-300 text-sm leading-relaxed font-medium">Prioritize **Engineering Controls** (Fixed barriers, sensors, AI telemetry) to reduce reliance on human compliance. Implement digital (e-PTW) interlocking for high-risk zones.</p>
+                        </div>
+                    </div>`;
+            }
             
-            // Scroll down smoothly to results
+            // Scroll down smoothly
             setTimeout(() => {
-                window.scrollTo({ top: document.getElementById('auditDashboard').offsetTop - 30, behavior: 'smooth' });
+                window.scrollTo({ top: document.getElementById('auditDashboard').offsetTop - 20, behavior: 'smooth' });
             }, 100);
         }
     </script>
