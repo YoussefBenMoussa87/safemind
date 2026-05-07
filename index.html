@@ -3,390 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YBM_AI | Enterprise HSSE Intelligence</title>
+    <title>YBM_AI | Enterprise Risk Operations</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { brand: { 400: '#fb923c', 500: '#f97316', 600: '#ea580c' }, dark: { 900: '#050505', 800: '#0a0a0a', 700: '#121212' } }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root { --bg-base: #030712; --panel-bg: rgba(17, 24, 39, 0.65); }
         body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-base); 
-            color: #f8fafc; 
-            -webkit-font-smoothing: antialiased; 
+            background-color: #050505; color: #f8fafc; -webkit-font-smoothing: antialiased; 
             background-image: 
-                radial-gradient(circle at 10% 40%, rgba(249, 115, 22, 0.05), transparent 40%),
-                radial-gradient(circle at 90% 60%, rgba(14, 165, 233, 0.03), transparent 40%);
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.08), transparent 60%);
+            background-size: 30px 30px, 30px 30px, 100% 100%;
             background-attachment: fixed;
         }
-        .font-terminal { font-family: 'JetBrains Mono', monospace; }
         
-        /* Premium Glassmorphism */
         .glass-panel { 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(24px); 
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(10, 10, 10, 0.6); 
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.04); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         
-        .glass-card { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .glass-card:hover { 
-            transform: translateY(-4px); 
-            border-color: rgba(249, 115, 22, 0.3); 
-            box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.15); 
-        }
+        .glass-card:hover { border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 0 30px -5px rgba(249, 115, 22, 0.1); transform: translateY(-2px); transition: all 0.3s ease; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(249, 115, 22, 0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
 
-        /* Animations */
-        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-        .terminal-scan { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, transparent, rgba(249,115,22,0.03), transparent); 
-            animation: scanline 6s linear infinite; pointer-events: none; 
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .scan-line { width: 100%; height: 2px; background: rgba(249,115,22,0.3); position: absolute; box-shadow: 0 0 10px rgba(249,115,22,0.5); animation: scan 3s infinite linear; pointer-events: none; opacity: 0; }
+        .group:hover .scan-line { opacity: 1; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        
+        #toast { transition: opacity 0.3s, transform 0.3s; transform: translateY(20px); opacity: 0; pointer-events: none; }
+        #toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative selection:bg-orange-500/30 selection:text-orange-200">
+<body class="min-h-screen flex flex-col relative selection:bg-brand-500/30 selection:text-brand-200">
 
-    <nav class="glass-panel sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/5">
-        <div class="flex items-center gap-4 group cursor-pointer">
-            <div class="h-10 w-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center font-black text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-transform group-hover:scale-105 relative overflow-hidden">
-                <span class="relative z-10">YBM</span>
-                <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-            </div>
-            <div>
-                <h1 class="text-xl font-900 tracking-tighter leading-none text-white">YBM_<span class="text-orange-500">AI</span></h1>
-                <p class="text-[8px] text-slate-400 font-bold uppercase tracking-[0.3em] mt-1">Enterprise HSSE Engine v15.0</p>
+    <nav class="glass-panel sticky top-0 z-50 px-6 py-3 flex justify-between items-center border-b border-white/5">
+        <div class="flex items-center gap-5">
+            <div class="h-10 w-10 bg-gradient-to-br from-brand-400 to-red-600 rounded-lg flex items-center justify-center font-black text-white shadow-[0_0_20px_rgba(249,115,22,0.2)]">YBM</div>
+            <div class="hidden sm:block">
+                <h1 class="text-xl font-900 tracking-tight leading-none text-white">YBM_<span class="text-brand-500">AI</span></h1>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="flex h-1.5 w-1.5 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span></span>
+                    <p class="text-[8px] text-slate-400 font-mono uppercase tracking-[0.2em]">Operational Edge v16.0</p>
+                </div>
             </div>
         </div>
-        <div class="hidden md:flex items-center gap-6 bg-black/40 px-5 py-2.5 rounded-full border border-white/5 shadow-inner">
-            <div class="flex items-center gap-2.5">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span class="text-[9px] font-bold tracking-widest text-slate-300 uppercase">Edge Compute Live</span>
-            </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex bg-dark-800 px-4 py-1.5 rounded-full border border-white/5 text-[9px] font-mono text-slate-400 uppercase tracking-widest">Serverless Backend Live</div>
+            <div class="h-8 w-8 rounded-full border border-white/10 overflow-hidden"><img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" alt="Profile"></div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-10 flex flex-col gap-8">
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
         
-        <section class="glass-panel rounded-[2rem] p-1.5 shadow-2xl relative overflow-hidden group">
-            <div class="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-            
-            <div class="bg-[#0a0d14] rounded-[1.6rem] p-8 md:p-10 relative overflow-hidden border border-white/5">
-                <div class="terminal-scan"></div>
-                
-                <h2 class="text-3xl md:text-4xl font-900 tracking-tight text-white mb-2">Situational Intelligence <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 italic">Terminal</span></h2>
-                <p class="text-slate-400 text-sm font-medium max-w-2xl mb-8">Deploy generative architecture to assess complex field conditions, human factors, and technical vulnerabilities instantly.</p>
-                
+        <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-2">
+            <div>
+                <h2 class="text-3xl font-900 tracking-tight text-white mb-1">Situational Intelligence <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-red-500 italic">Terminal</span></h2>
+                <p class="text-slate-500 text-sm font-medium">Real-time generative assessment of human factors and technical vulnerabilities.</p>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-[9px] font-mono text-slate-500 uppercase tracking-widest">System Latency: <span class="text-emerald-500">Secure</span></p>
+                <p class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mt-1" id="clock">Syncing...</p>
+            </div>
+        </div>
+
+        <section class="glass-panel rounded-[1.5rem] p-1 shadow-2xl relative overflow-hidden group">
+            <div class="bg-dark-900 rounded-[1.3rem] p-6 md:p-8 relative overflow-hidden border border-white/5">
+                <div class="scan-line"></div>
                 <div class="relative z-10 mb-6">
-                    <div class="absolute top-0 left-0 w-full h-10 bg-[#161b22] rounded-t-2xl border-b border-white/5 flex items-center px-4 gap-2">
-                        <div class="flex gap-1.5">
-                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
-                        </div>
-                        <span class="ml-4 text-[10px] font-terminal text-slate-500">ybm_ai@enterprise:~/risk_assessment$</span>
+                    <div class="absolute top-0 left-0 w-full h-10 bg-dark-800 rounded-t-xl border-b border-white/5 flex items-center px-4 justify-between">
+                        <div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div><div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div><div class="w-2.5 h-2.5 rounded-full bg-emerald-500/50"></div></div>
+                        <span class="text-[9px] font-mono text-slate-600">admin@ybm-hsse:~$</span>
                     </div>
                     <textarea id="intelInput" 
-                        class="w-full h-48 bg-[#0d1117] rounded-2xl pt-14 pb-6 px-6 text-sm md:text-base font-terminal text-emerald-400 border border-white/5 focus:border-orange-500/40 outline-none shadow-inner resize-none transition-all placeholder:text-slate-700"
+                        class="w-full h-40 bg-black rounded-xl pt-14 pb-6 px-6 text-sm font-mono text-emerald-400 border border-white/5 focus:border-brand-500/30 outline-none resize-none transition-all placeholder:text-slate-800"
                         spellcheck="false"
-                        placeholder="> Enter observation data here...&#10;> Try: 'Worker operating machinery without fitness certificate'&#10;> Or: 'Team working on roof edge without harnesses'"></textarea>
+                        placeholder="> Initialize scan...&#10;> Input field observation parameters."></textarea>
                 </div>
                 
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between relative z-10">
                     <div class="flex gap-2">
-                        <span class="text-[9px] font-bold text-slate-400 bg-white/5 px-3 py-1.5 rounded-md border border-white/5 uppercase tracking-widest">ISO 45001</span>
-                        <span class="text-[9px] font-bold text-slate-400 bg-white/5 px-3 py-1.5 rounded-md border border-white/5 uppercase tracking-widest">Neural Logic</span>
+                        <span class="text-[9px] font-bold text-slate-500 bg-white/5 px-3 py-1.5 rounded border border-white/5 uppercase tracking-widest flex items-center gap-2"><svg class="w-3 h-3 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg> ISO 45001</span>
                     </div>
-                    <button id="analyzeBtn" onclick="executeAIAudit()" class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 rounded-xl font-800 text-white shadow-[0_0_20px_rgba(249,115,22,0.2)] hover:shadow-[0_0_30px_rgba(249,115,22,0.4)] active:scale-95 transition-all uppercase tracking-[0.15em] text-[11px] flex items-center justify-center gap-3 border border-orange-400/20">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        <span id="btnText">Execute Analysis</span>
+                    <button id="analyzeBtn" onclick="executeAIAudit()" class="w-full md:w-auto px-8 py-3.5 bg-gradient-to-r from-brand-600 to-red-600 hover:from-brand-500 hover:to-red-500 rounded-lg font-900 text-white shadow-[0_0_15px_rgba(249,115,22,0.15)] hover:shadow-[0_0_25px_rgba(249,115,22,0.3)] active:scale-95 transition-all uppercase tracking-[0.15em] text-[10px] flex items-center justify-center gap-3">
+                        <span id="btnText">Execute Intelligence Core</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
             </div>
         </section>
 
-        <div id="loadingState" class="hidden glass-panel rounded-[2rem] p-16 text-center border border-white/5 flex-col items-center justify-center relative overflow-hidden">
-            <div class="relative z-10 flex flex-col items-center">
-                <div class="relative w-20 h-20 mb-8">
-                    <div class="absolute inset-0 rounded-full border-t-2 border-orange-500 animate-spin"></div>
-                    <div class="absolute inset-2 rounded-full border-r-2 border-red-500 animate-[spin_1.5s_linear_reverse_infinite]"></div>
-                    <div class="absolute inset-4 rounded-full border-b-2 border-emerald-500 animate-[spin_2s_linear_infinite]"></div>
-                    <div class="absolute inset-0 flex items-center justify-center font-terminal text-[10px] text-white">AI</div>
-                </div>
-                <h3 class="text-xl font-900 text-white tracking-[0.2em] uppercase mb-4">Compiling Intelligence</h3>
-                <div class="h-6 overflow-hidden flex items-center justify-center">
-                    <p id="loadingText" class="text-xs font-terminal text-orange-400 uppercase tracking-widest transition-all duration-300 transform translate-y-0">Establishing Edge Link...</p>
-                </div>
+        <div id="loadingState" class="hidden glass-panel rounded-[1.5rem] p-12 text-center border border-white/5 flex-col items-center justify-center h-64">
+            <div class="relative w-16 h-16 mb-6">
+                <div class="absolute inset-0 rounded-full border-t-2 border-brand-500 animate-spin"></div>
+                <div class="absolute inset-2 rounded-full border-r-2 border-red-500 animate-[spin_1.2s_linear_reverse_infinite]"></div>
+                <div class="absolute inset-0 flex items-center justify-center font-mono text-[9px] text-white">AI</div>
             </div>
+            <p id="loadingText" class="text-[10px] font-mono text-brand-400 uppercase tracking-[0.2em]">Authenticating Secure Link...</p>
         </div>
 
         <div id="auditDashboard" class="hidden flex flex-col gap-6 animate-fade-in">
-            
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div id="scoreCard" class="glass-panel p-8 rounded-[2rem] border-t-4 flex flex-col justify-center items-center text-center relative overflow-hidden glass-card">
-                    </div>
-                
-                <div id="summaryCard" class="glass-panel p-8 rounded-[2rem] lg:col-span-3 relative overflow-hidden glass-card flex flex-col justify-center">
-                    </div>
+                <div id="scoreCard" class="glass-panel p-6 rounded-[1.5rem] border-t-4 flex flex-col justify-center items-center text-center relative overflow-hidden glass-card"></div>
+                <div id="summaryCard" class="glass-panel p-8 rounded-[1.5rem] lg:col-span-3 relative overflow-hidden glass-card flex flex-col justify-between"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-8 rounded-[1.5rem] border border-white/5 relative overflow-hidden glass-card">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
-                        <div class="p-2 bg-red-500/10 rounded-lg"><svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
-                        <h3 class="text-white font-900 text-[10px] uppercase tracking-[0.2em]">Mandatory Directives</h3>
-                    </div>
-                    <ul id="tacticalList" class="space-y-4 text-slate-300 text-sm font-medium"></ul>
-                </div>
-
-                <div class="glass-panel p-8 rounded-[1.5rem] border border-white/5 relative overflow-hidden glass-card">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
-                        <div class="p-2 bg-blue-500/10 rounded-lg"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
-                        <h3 class="text-white font-900 text-[10px] uppercase tracking-[0.2em]">Compliance Mapping</h3>
-                    </div>
-                    <ul id="complianceList" class="space-y-4 text-slate-300 text-sm font-terminal"></ul>
-                </div>
-
-                <div class="glass-panel p-8 rounded-[1.5rem] border border-white/5 relative overflow-hidden glass-card">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
-                        <div class="p-2 bg-orange-500/10 rounded-lg"><svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>
-                        <h3 class="text-white font-900 text-[10px] uppercase tracking-[0.2em]">Human Factor Insight</h3>
-                    </div>
-                    <p id="behavioralText" class="text-slate-300 text-sm leading-relaxed font-medium"></p>
-                </div>
+                <div class="glass-panel p-6 rounded-[1.2rem] glass-card"><div class="flex items-center gap-3 mb-5 pb-3 border-b border-white/5"><div class="p-1.5 bg-red-500/10 rounded"><svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><h3 class="text-white font-800 text-[9px] uppercase tracking-widest">Tactical Directives</h3></div><ul id="tacticalList" class="space-y-3 text-slate-300 text-[13px]"></ul></div>
+                <div class="glass-panel p-6 rounded-[1.2rem] glass-card"><div class="flex items-center gap-3 mb-5 pb-3 border-b border-white/5"><div class="p-1.5 bg-blue-500/10 rounded"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><h3 class="text-white font-800 text-[9px] uppercase tracking-widest">Compliance Matrix</h3></div><ul id="complianceList" class="space-y-3 text-slate-300 text-[13px] font-mono"></ul></div>
+                <div class="glass-panel p-6 rounded-[1.2rem] glass-card"><div class="flex items-center gap-3 mb-5 pb-3 border-b border-white/5"><div class="p-1.5 bg-brand-500/10 rounded"><svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div><h3 class="text-white font-800 text-[9px] uppercase tracking-widest">Human Factor Insight</h3></div><p id="behavioralText" class="text-slate-300 text-[13px] leading-relaxed"></p></div>
             </div>
             
-            <div id="strategyPanel" class="glass-panel p-8 md:p-10 rounded-[2rem] border border-white/5 glass-card bg-gradient-to-br from-white/[0.02] to-transparent">
-                </div>
-            
+            <div id="strategyPanel" class="glass-panel p-6 rounded-[1.2rem] flex flex-col md:flex-row justify-between items-center gap-4 border border-white/5 bg-gradient-to-r from-dark-900 to-transparent"></div>
         </div>
     </main>
 
-    <footer class="border-t border-white/5 py-8 mt-auto bg-[#030712]">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-            <div class="flex items-center gap-4">
-                <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" 
-                     class="w-10 h-10 rounded-full border-2 border-slate-700 object-cover" alt="Youssef">
-                <div>
-                    <h4 class="text-white font-800 text-sm">Youssef Ben Moussa</h4>
-                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Enterprise HSE Manager & Architect</p>
-                </div>
-            </div>
-            <p class="text-slate-600 text-[9px] font-terminal uppercase tracking-[0.2em]">Proprietary YBM_AI Generative Logic System © 2026</p>
-        </div>
-    </footer>
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 glass-panel px-6 py-3 rounded-full border border-brand-500/30 flex items-center gap-3 shadow-[0_10px_30px_rgba(249,115,22,0.2)] z-50">
+        <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+        <p id="toastText" class="text-[10px] font-mono text-white uppercase tracking-widest"></p>
+    </div>
 
     <script>
-        // ==========================================
-        // YBM_AI EDGE COMPUTE ENGINE (Zero API Dependency)
-        // ==========================================
+        // Update Clock
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = "T-SYS: " + now.toISOString().split('T')[1].split('.')[0] + " UTC";
+        }, 1000);
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastText').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
         async function executeAIAudit() {
             const raw = document.getElementById('intelInput').value.trim();
-            if (raw.length < 5) {
-                alert("YBM_AI Requires detailed observation data to run analysis.");
-                return;
-            }
+            if (raw.length < 5) return showToast("ERROR: INSUFFICIENT PARAMETERS");
 
-            // 1. UI Reset & Loading State
             document.getElementById('auditDashboard').classList.add('hidden');
             const loading = document.getElementById('loadingState');
-            loading.classList.remove('hidden');
-            loading.classList.add('flex');
-            
+            loading.classList.remove('hidden'); loading.classList.add('flex');
             const btn = document.getElementById('analyzeBtn');
-            const btnText = document.getElementById('btnText');
             btn.disabled = true;
-            btnText.innerText = "Processing...";
 
-            // 2. Sequential Terminal Animation
-            const loadingTexts = [
-                "Bypassing Network Protocols...", 
-                "Initializing Edge Compute Engine...", 
-                "Parsing semantic risk vectors...", 
-                "Cross-referencing ISO/OSHA frameworks...", 
-                "Synthesizing Enterprise Output..."
-            ];
-            const textEl = document.getElementById('loadingText');
-            let step = 0;
-            const textInterval = setInterval(() => {
-                if(step < loadingTexts.length) { 
-                    textEl.innerText = loadingTexts[step]; 
-                    step++; 
-                }
-            }, 600);
+            const texts = ["Establishing Secure Link...", "Querying Serverless Core...", "Compiling Enterprise JSON..."];
+            let i = 0;
+            const textInt = setInterval(() => { if(i < texts.length) { document.getElementById('loadingText').innerText = texts[i]; i++; } }, 800);
 
-            // 3. Trigger Mock AI Engine (Simulated 3s processing delay)
-            setTimeout(() => {
-                clearInterval(textInterval);
-                const aiData = EdgeComputeLogic(raw);
-                
-                loading.classList.add('hidden');
-                loading.classList.remove('flex');
+            try {
+                const aiData = await callOpenRouterAPI(raw);
+                clearInterval(textInt);
+                loading.classList.add('hidden'); loading.classList.remove('flex');
                 btn.disabled = false;
-                btnText.innerText = "Execute Analysis";
-                
                 renderDashboard(aiData);
-            }, 3200);
+                showToast("ANALYSIS COMPLETE. LIVE LLM CONNECTED.");
+            } catch (error) {
+                console.error(error);
+                clearInterval(textInt);
+                document.getElementById('loadingText').innerText = "SECURE CONNECTION FAILED.";
+                document.getElementById('loadingText').classList.replace('text-brand-400', 'text-red-500');
+                setTimeout(() => {
+                    loading.classList.add('hidden'); loading.classList.remove('flex');
+                    btn.disabled = false;
+                    showToast("ERROR: CHECK BACKEND SERVER STATUS");
+                }, 3000);
+            }
         }
 
-        // The Edge Compute NLP Engine
-        function EdgeComputeLogic(input) {
-            const txt = input.toLowerCase();
-
-            // Core Logic Branch 1: Fatal Risks (Heights, Confined Space)
-            if (txt.includes('height') || txt.includes('harness') || txt.includes('roof') || txt.includes('fall')) {
-                return {
-                    score: 94, label: "IMMINENT DANGER", color: "red",
-                    domains: ["WORK AT HEIGHT", "FATAL RISK CONTROL"],
-                    actions: ["Halt operation immediately", "Deploy verified fall arrest systems", "Inspect anchor load limits"],
-                    stds: ["OSHA 1926.501", "ISO 45001 Clause 8.1.2"],
-                    humanFactor: "Extreme risk normalization detected. Operative lacks hazard perception regarding gravity-related dangers.",
-                    isNominal: false
-                };
-            }
-
-            // Core Logic Branch 2: Physiological (Fatigue, Medical, Sleep)
-            if (txt.includes('sleep') || txt.includes('fatigue') || txt.includes('medical') || txt.includes('certificate')) {
-                return {
-                    score: 82, label: "CRITICAL RISK", color: "red",
-                    domains: ["FITNESS TO WORK", "COMPETENCY VERIFICATION"],
-                    actions: ["Suspend worker task", "Verify medical/competency registry", "Review shift rotation patterns"],
-                    stds: ["ISO 45001 Clause 7.2", "Local Labor/Health Regulations"],
-                    humanFactor: "Administrative bypass suspected. Potential circadian rhythm disruption or chronic fatigue severely impairing cognitive function.",
-                    isNominal: false
-                };
-            }
-
-            // Core Logic Branch 3: PPE & Standard Violations
-            if (txt.includes('helmet') || txt.includes('ppe') || txt.includes('glasses') || txt.includes('glove')) {
-                return {
-                    score: 65, label: "NON-COMPLIANT", color: "orange",
-                    domains: ["PPE COMPLIANCE", "BEHAVIORAL SAFETY"],
-                    actions: ["Intervene and correct behavior", "Issue specific PPE required", "Conduct documented Toolbox Talk"],
-                    stds: ["ISO 45001 Clause 8.1.2 (c)", "Site Safety Rules"],
-                    humanFactor: "Comfort prioritized over safety protocols. Suggests a lapse in frontline supervisory enforcement.",
-                    isNominal: false
-                };
-            }
-
-            // Core Logic Branch 4: Safe Conditions
-            if (txt.includes('safe') || txt.includes('compliant') || txt.includes('secured') || txt.includes('good')) {
-                return {
-                    score: 12, label: "NOMINAL", color: "emerald",
-                    domains: ["STANDARD OPERATIONS", "VERIFIED COMPLIANCE"],
-                    actions: ["Continue monitoring", "Log positive behavioral observation"],
-                    stds: ["ISO 45001 Clause 9.1"],
-                    humanFactor: "Positive safety culture demonstrated. Procedural adherence and situational awareness are high.",
-                    isNominal: true
-                };
-            }
-
-            // Default Generic Processing for any other text
-            return {
-                score: 48, label: "ELEVATED", color: "orange",
-                domains: ["GENERAL SAFETY", "SITE CONDITIONS"],
-                actions: ["Conduct immediate area inspection", "Supervisor visual verification required"],
-                stds: ["ISO 45001 General Clause 8.1"],
-                humanFactor: "Potential situational awareness deficit. AI recommends proceeding with heightened caution.",
-                isNominal: false
-            };
-        }
-
-        // Dashboard Rendering Logic
-        function renderDashboard(data) {
-            const dash = document.getElementById('auditDashboard');
-            dash.classList.remove('hidden');
+        async function callOpenRouterAPI(userInput) {
+            // 🚨🚨🚨 PASTE YOUR CLOUDFLARE WORKER URL HERE 🚨🚨🚨
+            const url = "https://ybm-ai-proxy.tlsyoussef3.workers.dev";; 
             
-            // Safe Tailwind Color Mapping mapping
-            const styles = {
-                red: { text: 'text-red-500', border: 'border-red-500', bg: 'bg-red-500/10' },
-                orange: { text: 'text-orange-500', border: 'border-orange-500', bg: 'bg-orange-500/10' },
-                emerald: { text: 'text-emerald-500', border: 'border-emerald-500', bg: 'bg-emerald-500/10' }
-            };
-            const theme = styles[data.color];
+            const systemPrompt = `You are YBM_AI, an Enterprise HSSE Architect. Analyze the observation based on ISO 45001. 
+            You MUST respond ONLY with a raw, valid JSON object. No markdown, no backticks, no text outside the JSON.
+            Format: {"score": 85, "label": "CRITICAL", "color": "red", "domains": ["Safety"], "actions": ["Action 1"], "stds": ["ISO 45001"], "humanFactor": "Text here", "isNominal": false, "conf": 98}`;
 
-            // 1. SCORE CARD
-            document.getElementById('scoreCard').className = `glass-panel p-8 rounded-[2rem] border-t-4 ${theme.border} flex flex-col justify-center items-center text-center relative overflow-hidden glass-card`;
-            document.getElementById('scoreCard').innerHTML = `
-                <div class="absolute inset-0 bg-gradient-to-b from-${data.color}-500/10 to-transparent"></div>
-                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 relative z-10">YBM_AI Risk Index</span>
-                <div class="flex items-start justify-center gap-1 mb-2 relative z-10">
-                    <span class="text-7xl font-900 leading-none text-white tracking-tighter">${data.score}</span>
-                    <span class="text-sm font-bold text-slate-500 mt-2 font-terminal">/100</span>
-                </div>
-                <span class="px-4 py-1.5 ${theme.bg} ${theme.text} font-900 text-[10px] uppercase tracking-widest rounded-full border border-${data.color}-500/20 relative z-10 mt-2">${data.label}</span>
-            `;
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                    // Notice: No API key needed here anymore!
+                },
+                body: JSON.stringify({
+                    "model": "meta-llama/llama-3-8b-instruct:free",
+                    "messages": [
+                        { "role": "system", "content": systemPrompt },
+                        { "role": "user", "content": `Observation: ${userInput}` }
+                    ],
+                    "temperature": 0.1
+                })
+            });
 
-            // 2. EXECUTIVE SUMMARY
+            if (!response.ok) throw new Error("Backend server rejected request");
+
+            const data = await response.json();
+            let textResponse = data.choices[0].message.content;
+            
+            // Clean up any rogue markdown the AI might add
+            const cleanJson = textResponse.replace(/```json/gi, "").replace(/```/g, "").trim();
+            return JSON.parse(cleanJson);
+        }
+
+        function renderDashboard(data) {
+            document.getElementById('auditDashboard').classList.remove('hidden');
+            
+            // Safety check for colors returned by AI
+            const validColors = ['red', 'orange', 'emerald'];
+            let color = validColors.includes(data.color) ? data.color : 'orange';
+            if (data.color === 'green') color = 'emerald';
+            
+            const th = { red: 'text-red-500 border-red-500 bg-red-500/10', orange: 'text-orange-500 border-orange-500 bg-orange-500/10', emerald: 'text-emerald-500 border-emerald-500 bg-emerald-500/10' }[color];
+            const tc = `text-${color}-500`;
+
+            document.getElementById('scoreCard').className = `glass-panel p-6 rounded-[1.5rem] border-t-4 border-${color}-500 flex flex-col justify-center items-center text-center relative glass-card`;
+            document.getElementById('scoreCard').innerHTML = `<span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-2">Risk Index</span><div class="text-6xl font-900 text-white tracking-tighter">${data.score}</div><span class="px-3 py-1 bg-${color}-500/10 ${tc} font-800 text-[9px] uppercase tracking-widest rounded border border-${color}-500/20 mt-3">${data.label}</span>`;
+            
             document.getElementById('summaryCard').innerHTML = `
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full ${theme.bg.replace('/10','')} opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 ${theme.bg.replace('/10','')}"></span></span>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-terminal">System Output</span>
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2"><span class="flex h-1.5 w-1.5 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-${color}-400 opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-${color}-500"></span></span><span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest">Model Confidence: ${data.conf || 95}%</span></div>
+                        <span class="text-[9px] font-mono text-slate-600">ID: ${Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
+                    </div>
+                    <h3 class="text-xl font-800 text-white mb-2">Vectors: <span class="${tc}">[ ${data.domains.join(' + ')} ]</span></h3>
+                    <p class="text-slate-400 text-sm">${data.isNominal ? 'Operation validated by AI Core.' : 'Systemic vulnerabilities identified. Immediate protocol enforcement required.'}</p>
                 </div>
-                <h3 class="text-2xl font-800 text-white mb-3 tracking-tight">Vectors Detected: <span class="${theme.text}">[ ${data.domains.join(' + ')} ]</span></h3>
-                <p class="text-slate-400 text-base leading-relaxed font-medium max-w-3xl">
-                    ${data.isNominal 
-                        ? 'Edge analysis complete. No life-critical anomalies or compliance deviations detected in the operational parameters.' 
-                        : 'Edge analysis identifies critical vulnerabilities spanning across technical and administrative planes. Immediate intervention protocols recommended.'}
-                </p>
             `;
-
-            // 3. LISTS
-            document.getElementById('tacticalList').innerHTML = data.actions.map(a => 
-                `<li class="flex gap-3"><span class="${theme.text} mt-0.5">↳</span> <span>${a}</span></li>`
-            ).join('');
-
-            document.getElementById('complianceList').innerHTML = data.stds.map(s => 
-                `<li class="flex gap-3"><span class="text-blue-500 font-terminal text-xs">#</span> <span class="text-slate-300 font-terminal text-xs">${s}</span></li>`
-            ).join('');
-
+            
+            document.getElementById('tacticalList').innerHTML = data.actions.map(a => `<li class="flex gap-2"><span class="${tc}">›</span> <span>${a}</span></li>`).join('');
+            document.getElementById('complianceList').innerHTML = data.stds.map(s => `<li class="flex gap-2"><span class="text-blue-500">#</span> <span class="text-slate-300">${s}</span></li>`).join('');
             document.getElementById('behavioralText').innerText = data.humanFactor;
 
-            // 4. STRATEGY PANEL
-            const strat = document.getElementById('strategyPanel');
-            if (data.isNominal) {
-                strat.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-4 opacity-50">
-                        <svg class="w-8 h-8 text-emerald-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <h3 class="text-white font-bold text-xs uppercase tracking-[0.3em]">Operation Approved by Edge System</h3>
-                    </div>`;
-            } else {
-                strat.innerHTML = `
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="h-8 w-1.5 bg-white rounded-full"></div>
-                        <div>
-                            <h3 class="text-white font-900 text-sm uppercase tracking-[0.2em]">YBM_AI Root Cause Inference Engine</h3>
-                            <p class="text-slate-500 text-[10px] font-terminal uppercase mt-1">Systemic Architecture Review</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div class="bg-black/20 p-6 rounded-2xl border border-white/5 shadow-inner">
-                            <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 block">Architectural Breakdown</span>
-                            <p class="text-slate-300 text-sm leading-relaxed font-medium">The Edge logic recognizes a failure in the barrier management system. The breakdown occurred at the Operational Planning and organizational oversight phases.</p>
-                        </div>
-                        <div class="bg-black/20 p-6 rounded-2xl border border-white/5 shadow-inner">
-                            <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 block">Enterprise Engineering Hierarchy</span>
-                            <p class="text-slate-300 text-sm leading-relaxed font-medium">Prioritize Administrative and Engineering Controls: Implement digital interlocking tied to verified registries to eliminate human oversight dependency.</p>
-                        </div>
-                    </div>`;
-            }
-            
-            // Smooth scroll to results
-            setTimeout(() => { dash.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+            document.getElementById('strategyPanel').innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-dark-800 rounded border border-white/5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg></div>
+                    <div><p class="text-white font-bold text-[10px] uppercase tracking-widest">Data Management</p><p class="text-slate-500 text-[9px] font-mono mt-0.5">Automated logging active.</p></div>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto mt-4 md:mt-0">
+                    ${!data.isNominal ? `<button onclick="showToast('STOP WORK ORDER ISSUED TO SITE SUPERVISOR')" class="flex-1 md:flex-none px-6 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 rounded text-[9px] font-bold uppercase tracking-widest transition-colors">Issue Stop Work</button>` : ''}
+                    <button onclick="showToast('PDF REPORT GENERATED & SECURELY TRANSMITTED')" class="flex-1 md:flex-none px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded text-[9px] font-bold uppercase tracking-widest transition-colors">Export Report</button>
+                </div>
+            `;
+            document.getElementById('auditDashboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
 </body>
