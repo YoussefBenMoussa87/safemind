@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YBM_AI | Conversational Risk Core</title>
+    <title>YBM_AI | Enterprise Command Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-                    colors: { brand: { 400: '#fb923c', 500: '#f97316', 600: '#ea580c' }, dark: { 900: '#050505', 800: '#0a0a0a', 700: '#121212' } }
+                    colors: { brand: { 400: '#fb923c', 500: '#f97316', 600: '#ea580c' }, dark: { 900: '#030303', 800: '#0a0a0a', 700: '#121212' } }
                 }
             }
         }
@@ -21,172 +21,262 @@
 
     <style>
         body { 
-            background-color: #050505; color: #f8fafc; -webkit-font-smoothing: antialiased; 
+            background-color: #030303; color: #f8fafc; overflow: hidden;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 30px 30px;
-            background-attachment: fixed;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+                radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.03), transparent 25%);
         }
         
         .glass-panel { 
-            background: rgba(10, 10, 10, 0.75); 
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            background: rgba(10, 10, 10, 0.4); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05); 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        /* Custom Scrollbar for the Chat Feed */
-        ::-webkit-scrollbar { width: 6px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(249, 115, 22, 0.5); }
 
         /* Animations */
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-message { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        
-        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing { 0%, 80%, 100% { transform: scale(0); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-enter { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .typing-pulse { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .2; } }
     </style>
 </head>
-<body class="selection:bg-brand-500/30 selection:text-brand-200">
+<body class="h-screen w-screen flex selection:bg-brand-500/30 selection:text-brand-200">
 
-    <nav class="glass-panel z-50 px-6 py-3 flex justify-between items-center border-b border-white/5 shrink-0">
-        <div class="flex items-center gap-4">
-            <div class="h-9 w-9 bg-gradient-to-br from-brand-400 to-red-600 rounded-lg flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(249,115,22,0.3)]">YBM</div>
+    <aside class="w-64 h-full glass-panel border-r border-white/5 flex flex-col hidden lg:flex relative z-20">
+        <div class="p-6 border-b border-white/5 flex items-center gap-3">
+            <div class="h-8 w-8 bg-gradient-to-br from-brand-400 to-red-600 rounded flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(249,115,22,0.3)]">Y</div>
             <div>
-                <h1 class="text-lg font-900 tracking-tight leading-none text-white">YBM_<span class="text-brand-500">AI</span></h1>
-                <p class="text-[8px] text-slate-400 font-mono uppercase tracking-[0.2em] mt-1">Conversational Edge v17.0</p>
+                <h1 class="text-sm font-900 tracking-tight leading-none text-white">YBM_<span class="text-brand-500">AI</span></h1>
+                <p class="text-[8px] font-mono text-slate-500 uppercase tracking-widest mt-1">Command Center</p>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-            <span class="hidden sm:block text-[9px] font-mono text-slate-400 uppercase tracking-widest">System Online</span>
+        <div class="p-6 flex-grow flex flex-col gap-6">
+            <div>
+                <p class="text-[9px] font-mono text-slate-600 uppercase tracking-widest mb-3">Live Modules</p>
+                <div class="space-y-2">
+                    <button class="w-full flex items-center gap-3 px-3 py-2 bg-brand-500/10 text-brand-400 border border-brand-500/20 rounded font-bold text-[10px] uppercase tracking-widest"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Risk Intelligence</button>
+                    <button class="w-full flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded font-bold text-[10px] uppercase tracking-widest transition-all"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg> Compliance Logs</button>
+                    <button class="w-full flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded font-bold text-[10px] uppercase tracking-widest transition-all"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> Personnel Matrix</button>
+                </div>
+            </div>
         </div>
-    </nav>
+        <div class="p-6 border-t border-white/5">
+            <div class="flex items-center gap-3">
+                <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" class="w-8 h-8 rounded border border-white/10" alt="Youssef">
+                <div>
+                    <p class="text-[10px] font-bold text-white uppercase tracking-widest">Y. Ben Moussa</p>
+                    <p class="text-[8px] font-mono text-slate-500 uppercase">Chief Architect</p>
+                </div>
+            </div>
+        </div>
+    </aside>
 
-    <main class="flex-grow flex flex-col max-w-5xl w-full mx-auto relative overflow-hidden h-full">
-        
-        <div id="chatFeed" class="flex-grow overflow-y-auto px-4 py-8 flex flex-col gap-6 pb-40">
-            
-            <div class="flex gap-4 animate-message">
-                <div class="h-8 w-8 rounded-full bg-dark-800 border border-white/10 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
-                <div class="flex flex-col gap-1 max-w-[85%]">
+    <main class="flex-1 h-full flex flex-col relative z-10 bg-dark-900/50">
+        <header class="h-16 glass-panel border-b border-white/5 flex items-center justify-between px-6 shrink-0">
+            <div class="flex items-center gap-3">
+                <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest">Secure Link Active</span>
+            </div>
+            <div class="text-[9px] font-mono text-slate-500 uppercase tracking-widest flex gap-4">
+                <span>Model: Llama-3-8B</span>
+                <span id="clock">00:00:00 UTC</span>
+            </div>
+        </header>
+
+        <div id="chatFeed" class="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col gap-6 pb-40 scroll-smooth">
+            <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
+                <div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
+                <div class="flex flex-col gap-1 w-full">
                     <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest ml-1">YBM_AI Core</span>
-                    <div class="glass-panel rounded-2xl rounded-tl-sm px-5 py-3.5 text-sm text-slate-200 font-medium leading-relaxed">
-                        Terminal initialized. I am YBM_AI, an Enterprise Risk Architect. Please describe a field observation or safety condition for analysis.
+                    <div class="glass-panel border-white/5 rounded-xl rounded-tl-sm p-5 text-sm text-slate-200 font-medium leading-relaxed">
+                        Enterprise neural net initialized. I am your HSSE Co-Pilot. I can answer questions about safety standards, or generate a full risk dashboard if you describe a specific field observation. How can I assist you?
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#050505] via-[#050505] to-transparent pt-10 pb-6 px-4">
-            <div class="max-w-4xl mx-auto glass-panel rounded-[1.5rem] p-2 flex items-end gap-2 border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] focus-within:border-brand-500/50 transition-colors">
+        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-dark-900 via-dark-900 to-transparent pt-12 pb-8 px-6">
+            <div class="max-w-4xl mx-auto glass-panel bg-black/80 rounded-2xl p-2 flex items-end gap-2 border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] focus-within:border-brand-500/50 transition-colors relative">
                 <textarea id="userInput" 
-                    class="w-full max-h-32 min-h-[50px] bg-transparent text-sm text-white px-4 py-3 outline-none resize-none placeholder:text-slate-600 font-medium"
-                    placeholder="Type a greeting or describe a safety hazard..."
+                    class="w-full max-h-32 min-h-[50px] bg-transparent text-sm text-white px-4 py-3 outline-none resize-none placeholder:text-slate-600 font-mono"
+                    placeholder="> Initialize scan... Describe hazard or ask a question..."
                     onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); handleUserSubmit(); }"></textarea>
                 
-                <button onclick="handleUserSubmit()" class="h-[50px] w-[50px] shrink-0 bg-brand-600 hover:bg-brand-500 rounded-xl flex items-center justify-center text-white shadow-lg transition-transform active:scale-90">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                <button onclick="handleUserSubmit()" id="submitBtn" class="h-[50px] w-[50px] shrink-0 bg-white/5 hover:bg-brand-600 text-white border border-white/10 rounded-xl flex items-center justify-center transition-all active:scale-95">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                 </button>
             </div>
-            <p class="text-center text-[9px] font-mono text-slate-600 uppercase tracking-[0.2em] mt-3">Architect: Youssef Ben Moussa | Proprietary NLP Engine</p>
         </div>
-
     </main>
 
+    <aside class="w-80 h-full glass-panel border-l border-white/5 hidden xl:flex flex-col relative z-20 bg-dark-900/80">
+        <div class="p-6 border-b border-white/5"><h3 class="text-[10px] font-black text-white uppercase tracking-widest">System Telemetry</h3></div>
+        <div class="p-6 space-y-6">
+            <div>
+                <div class="flex justify-between mb-2"><span class="text-[9px] font-mono text-slate-500 uppercase">Proxy Status</span><span class="text-[9px] font-mono text-emerald-500">CONNECTED</span></div>
+                <div class="w-full bg-white/5 rounded-full h-1"><div class="bg-emerald-500 h-1 rounded-full w-full"></div></div>
+            </div>
+            <div>
+                <div class="flex justify-between mb-2"><span class="text-[9px] font-mono text-slate-500 uppercase">Context Window</span><span class="text-[9px] font-mono text-brand-400" id="tokenCount">0 / 8000</span></div>
+                <div class="w-full bg-white/5 rounded-full h-1"><div class="bg-brand-500 h-1 rounded-full w-[5%]" id="tokenBar"></div></div>
+            </div>
+            <div class="glass-panel p-4 rounded border border-white/5 bg-black/50">
+                <span class="text-[9px] font-mono text-slate-600 uppercase block mb-2">Live Log Output</span>
+                <div id="systemLog" class="text-[8px] font-mono text-emerald-500/70 h-32 overflow-hidden flex flex-col justify-end space-y-1">
+                    <p>> System boot sequence initiated.</p>
+                    <p>> UI Matrix loaded.</p>
+                    <p>> Cloudflare proxy verified.</p>
+                    <p>> Awaiting user command...</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
     <script>
+        // Secure Cloudflare Proxy URL (Your actual URL from the screenshot)
+        const CLOUDFLARE_URL = "https://ybm-ai-proxy.tlsyoussef3.workers.dev"; 
+
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
+        const submitBtn = document.getElementById('submitBtn');
+        let totalTokens = 0;
 
-        // Main Handler
+        // Clock Update
+        setInterval(() => { document.getElementById('clock').innerText = new Date().toISOString().split('T')[1].split('.')[0] + " UTC"; }, 1000);
+
+        function logToTelemetry(msg) {
+            const logBox = document.getElementById('systemLog');
+            if(logBox) {
+                logBox.innerHTML += `<p>> ${msg}</p>`;
+                if(logBox.children.length > 6) logBox.removeChild(logBox.firstChild);
+            }
+        }
+
         async function handleUserSubmit() {
             const text = userInput.value.trim();
             if (!text) return;
 
-            // 1. Clear input & Add User Message
             userInput.value = '';
             appendUserMessage(text);
-            
-            // 2. Add AI Typing Indicator
             const typingId = appendTypingIndicator();
             scrollToBottom();
+            
+            submitBtn.disabled = true;
+            logToTelemetry(`Transmitting payload to Secure Proxy...`);
 
-            // 3. Process Logic (Simulated API delay for realism)
-            setTimeout(() => {
+            try {
+                const aiResponse = await callSecureBackend(text);
                 document.getElementById(typingId).remove();
-                processAIResponse(text);
+                
+                // Render Conversational Text
+                appendAIMessage(aiResponse.reply);
+                
+                // Render Widget if Hazard Detected
+                if (aiResponse.isHazard && aiResponse.riskData) {
+                    setTimeout(() => {
+                        appendDashboardWidget(aiResponse.riskData);
+                        scrollToBottom();
+                        logToTelemetry(`Risk Widget generated successfully.`);
+                    }, 800);
+                }
+                
                 scrollToBottom();
-            }, 1200 + Math.random() * 800); // Random delay between 1.2s and 2.0s
+            } catch (error) {
+                document.getElementById(typingId)?.remove();
+                appendAIMessage("⚠️ Error: Unable to establish Neural Link. Please check the F12 Console for Cloudflare diagnostics.");
+                logToTelemetry(`<span class="text-red-500">Proxy Fetch Failed.</span>`);
+                console.error(error);
+            } finally {
+                submitBtn.disabled = false;
+            }
         }
 
-        // Logic Engine
-        function processAIResponse(input) {
-            const txt = input.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-            const words = txt.split(' ');
+        async function callSecureBackend(userText) {
+            // This prompt forces the AI to act like a real SaaS engine and return strict JSON.
+            const systemPrompt = `You are YBM_AI, an elite Enterprise HSSE Architect. 
+            Read the user's input.
+            1. If it's a greeting or general question, respond conversationally and set isHazard to false.
+            2. If it's a field observation or safety hazard, respond conversationally AND provide risk analysis data, setting isHazard to true.
+
+            You MUST respond with ONLY a raw JSON object. No markdown formatting.
+            {
+              "reply": "Your conversational response as the AI",
+              "isHazard": boolean,
+              "riskData": {
+                 "score": (0-100),
+                 "label": "CRITICAL",
+                 "color": "red",
+                 "domains": ["Category 1", "Category 2"],
+                 "actions": ["Action 1", "Action 2"],
+                 "stds": ["ISO/OSHA Ref 1", "ISO/OSHA Ref 2"],
+                 "humanFactor": "Your psychological analysis of the worker's behavior"
+              }
+            }`;
+
+            // Calling YOUR secure Cloudflare Worker
+            const response = await fetch(CLOUDFLARE_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                    // No API key here! The Cloudflare worker handles the secret key.
+                },
+                body: JSON.stringify({
+                    "model": "meta-llama/llama-3-8b-instruct:free",
+                    "messages": [
+                        { "role": "system", "content": systemPrompt },
+                        { "role": "user", "content": userText }
+                    ],
+                    "temperature": 0.2
+                })
+            });
+
+            const data = await response.json();
             
-            // Intent 1: Greeting
-            const isGreeting = ['hello', 'hi', 'hey', 'test', 'morning'].some(w => words.includes(w)) && words.length < 4;
-            if (isGreeting) {
-                appendAIMessage("Hello! System parameters are nominal. What field condition or safety hazard would you like me to analyze today?");
-                return;
+            // Diagnostic logging in case OpenRouter sends an error through Cloudflare
+            console.log("PROXY RESPONSE:", data);
+
+            if (!response.ok || data.error) {
+                throw new Error(`Proxy/API Error: ${data.error?.message || "Unknown Cloudflare Error"}`);
+            }
+            if (!data.choices || data.choices.length === 0) {
+                throw new Error("API sent an empty response.");
+            }
+            
+            // Update Token Telemetry
+            if(data.usage) {
+                totalTokens += data.usage.total_tokens;
+                const tokenEl = document.getElementById('tokenCount');
+                if(tokenEl) tokenEl.innerText = `${totalTokens} / 8000`;
             }
 
-            // Intent 2: Unclear/Too Short
-            if (words.length < 3) {
-                appendAIMessage("I need more context. Please provide a detailed description of the worker's behavior, the equipment, or the environment to execute a risk analysis.");
-                return;
+            let rawText = data.choices[0].message.content;
+            
+            // Clean up any rogue markdown the AI might add
+            let cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+            
+            // Fix for sometimes the AI puts text before or after the JSON bracket
+            const startIndex = cleanJson.indexOf('{');
+            const endIndex = cleanJson.lastIndexOf('}');
+            if (startIndex !== -1 && endIndex !== -1) {
+                cleanJson = cleanJson.substring(startIndex, endIndex + 1);
             }
 
-            // Intent 3: Risk Assessment (Generate Dashboard)
-            appendAIMessage("Acknowledged. Parsing semantic risk vectors and cross-referencing ISO 45001 compliance standards. Generating Intelligence Dashboard...");
-            
-            // Small delay to make it feel like it's building the dashboard
-            setTimeout(() => {
-                const aiData = calculateRiskData(words);
-                appendDashboardWidget(aiData);
-                scrollToBottom();
-            }, 1000);
-        }
-
-        // The Edge Compute Brain (No APIs needed)
-        function calculateRiskData(words) {
-            const match = (arr) => arr.some(k => words.includes(k));
-            
-            const c = {
-                height: ['height', 'roof', 'fall', 'harness', 'scaffold'],
-                fatigue: ['sleep', 'fatigue', 'tired', 'drowsy'],
-                comp: ['permit', 'certificate', 'training', 'license'],
-                ppe: ['helmet', 'ppe', 'glasses', 'gloves'],
-                mach: ['forklift', 'crane', 'machine'],
-                safe: ['safe', 'compliant', 'good']
-            };
-
-            if (match(c.height)) return { score: 94, label: "IMMINENT DANGER", color: "red", domains: ["WORK AT HEIGHT", "FATAL RISK"], actions: ["Halt operation immediately", "Deploy verified fall arrest systems"], stds: ["OSHA 1926.501", "ISO 45001: 8.1.2"], humanFactor: "Risk normalization. Operative lacks hazard perception." };
-            if (match(c.fatigue)) return { score: 88, label: "CRITICAL RISK", color: "red", domains: ["FITNESS TO WORK"], actions: ["Suspend worker task", "Initiate medical assessment"], stds: ["ISO 45001: 7.1.2"], humanFactor: "Severe cognitive impairment suspected." };
-            if (match(c.comp)) return { score: 65, label: "NON-COMPLIANT", color: "orange", domains: ["ADMINISTRATIVE CONTROL"], actions: ["Halt task", "Verify electronic registry"], stds: ["ISO 45001: 7.2"], humanFactor: "Worker assumes task competency without verification." };
-            if (match(c.ppe)) return { score: 55, label: "BEHAVIORAL RISK", color: "orange", domains: ["PPE COMPLIANCE"], actions: ["Intervene and correct", "Document Toolbox Talk"], stds: ["ISO 45001: 8.1.2"], humanFactor: "Comfort prioritized over safety. Supervisory lapse." };
-            if (match(c.safe)) return { score: 12, label: "NOMINAL", color: "emerald", domains: ["STANDARD OPERATIONS"], actions: ["Log positive observation"], stds: ["ISO 45001: 9.1"], humanFactor: "Positive safety culture demonstrated." };
-
-            return { score: 48, label: "ANALYZING", color: "orange", domains: ["UNCLASSIFIED"], actions: ["Supervisor visual verification required"], stds: ["ISO 45001: 8.1"], humanFactor: "AI requires human supervisor validation of context." };
+            return JSON.parse(cleanJson);
         }
 
         // --- UI RENDERERS ---
 
         function appendUserMessage(text) {
             const html = `
-            <div class="flex justify-end animate-message w-full">
-                <div class="bg-brand-600 rounded-2xl rounded-tr-sm px-5 py-3.5 text-sm text-white font-medium max-w-[80%] shadow-lg">
-                    ${text}
+            <div class="flex justify-end animate-enter max-w-4xl mx-auto w-full">
+                <div class="bg-white/10 border border-white/5 rounded-xl rounded-tr-sm px-5 py-3.5 text-sm text-white font-mono max-w-[80%] shadow-lg">
+                    > ${text}
                 </div>
             </div>`;
             chatFeed.insertAdjacentHTML('beforeend', html);
@@ -194,11 +284,11 @@
 
         function appendAIMessage(text) {
             const html = `
-            <div class="flex gap-4 animate-message">
-                <div class="h-8 w-8 rounded-full bg-dark-800 border border-white/10 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
-                <div class="flex flex-col gap-1 max-w-[85%] w-full">
+            <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
+                <div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
+                <div class="flex flex-col gap-1 w-full">
                     <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest ml-1">YBM_AI Core</span>
-                    <div class="glass-panel rounded-2xl rounded-tl-sm px-5 py-3.5 text-sm text-slate-200 font-medium leading-relaxed">
+                    <div class="glass-panel border-white/5 rounded-xl rounded-tl-sm p-5 text-sm text-slate-200 font-medium leading-relaxed">
                         ${text}
                     </div>
                 </div>
@@ -209,12 +299,12 @@
         function appendTypingIndicator() {
             const id = 'typing-' + Date.now();
             const html = `
-            <div id="${id}" class="flex gap-4 animate-message">
-                <div class="h-8 w-8 rounded-full bg-dark-800 border border-white/10 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
-                <div class="glass-panel rounded-2xl rounded-tl-sm px-5 py-4 flex gap-1 items-center w-16 h-10">
-                    <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
-                    <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
-                    <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+            <div id="${id}" class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
+                <div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
+                <div class="glass-panel border-white/5 rounded-xl rounded-tl-sm px-5 py-4 flex gap-2 items-center w-20">
+                    <div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 0ms;"></div>
+                    <div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 300ms;"></div>
+                    <div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 600ms;"></div>
                 </div>
             </div>`;
             chatFeed.insertAdjacentHTML('beforeend', html);
@@ -222,39 +312,45 @@
         }
 
         function appendDashboardWidget(data) {
-            const tc = `text-${data.color}-500`;
-            const bc = `border-${data.color}-500`;
-            const bgc = `bg-${data.color}-500/10`;
+            // Failsafe for invalid colors
+            const validColors = ['red', 'orange', 'emerald'];
+            let color = validColors.includes(data.color) ? data.color : 'orange';
+            if (data.color === 'green') color = 'emerald';
+
+            const tc = `text-${color}-500`;
+            const bc = `border-${color}-500`;
+            const bgc = `bg-${color}-500/10`;
 
             const html = `
-            <div class="flex gap-4 animate-message ml-12 mb-4">
-                <div class="w-full glass-panel border border-white/10 rounded-[1.5rem] overflow-hidden shadow-2xl">
-                    <div class="bg-dark-800 px-6 py-4 border-b border-white/5 flex justify-between items-center">
+            <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full ml-12 mb-4">
+                <div class="w-full bg-black/60 border border-white/10 rounded-xl overflow-hidden shadow-2xl relative">
+                    <div class="absolute top-0 left-0 w-full h-1 ${bgc}"></div>
+                    <div class="bg-dark-800/80 px-6 py-3 border-b border-white/5 flex justify-between items-center">
                         <div class="flex items-center gap-2">
-                            <svg class="w-4 h-4 ${tc}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            <span class="text-[10px] font-mono text-slate-300 uppercase tracking-widest">Risk Intelligence Widget</span>
+                            <svg class="w-3.5 h-3.5 ${tc}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <span class="text-[9px] font-mono text-slate-300 uppercase tracking-widest">Risk Intelligence Widget</span>
                         </div>
-                        <span class="text-[9px] font-mono text-slate-500">ID: ${Math.random().toString(36).substr(2, 6).toUpperCase()}</span>
                     </div>
                     
-                    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                        
-                        <div class="bg-black/30 rounded-xl p-6 border-t-2 ${bc} flex flex-col items-center justify-center text-center">
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-white/5 rounded-lg p-5 border-l-2 ${bc} flex flex-col items-center justify-center text-center col-span-1">
                             <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Index Score</span>
                             <div class="text-5xl font-900 text-white tracking-tighter">${data.score}</div>
-                            <span class="px-3 py-1 mt-2 ${bgc} ${tc} text-[9px] font-bold uppercase tracking-widest rounded">${data.label}</span>
+                            <span class="px-2 py-1 mt-2 ${bgc} ${tc} text-[8px] font-bold uppercase tracking-widest rounded">${data.label}</span>
                         </div>
-
-                        <div class="md:col-span-2 flex flex-col justify-center">
-                            <h4 class="text-white font-bold text-sm mb-3 flex gap-2 items-center"><span class="${tc}">Vectors:</span> [ ${data.domains.join(' + ')} ]</h4>
-                            <div class="space-y-4">
+                        <div class="md:col-span-3 flex flex-col justify-center gap-4">
+                            <div>
+                                <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1">Tactical Directives</span>
+                                <ul class="text-sm text-slate-200 space-y-1">${(data.actions || []).map(a => `<li class="flex items-start gap-2"><span class="${tc}">›</span> ${a}</li>`).join('')}</ul>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 pt-3 border-t border-white/5">
                                 <div>
-                                    <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1">Directives</span>
-                                    <ul class="text-sm text-slate-300 space-y-1">${data.actions.map(a => `<li>› ${a}</li>`).join('')}</ul>
+                                    <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1">Compliance Matrix</span>
+                                    <p class="text-xs text-blue-400 font-mono">${(data.stds || []).join('<br>')}</p>
                                 </div>
                                 <div>
                                     <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1">Human Factor</span>
-                                    <p class="text-sm text-slate-300 leading-relaxed">${data.humanFactor}</p>
+                                    <p class="text-xs text-slate-400">${data.humanFactor || 'N/A'}</p>
                                 </div>
                             </div>
                         </div>
@@ -264,12 +360,7 @@
             chatFeed.insertAdjacentHTML('beforeend', html);
         }
 
-        function scrollToBottom() {
-            // Smooth scroll to the bottom of the feed
-            setTimeout(() => {
-                chatFeed.scrollTo({ top: chatFeed.scrollHeight, behavior: 'smooth' });
-            }, 50);
-        }
+        function scrollToBottom() { setTimeout(() => { chatFeed.scrollTo({ top: chatFeed.scrollHeight, behavior: 'smooth' }); }, 50); }
     </script>
 </body>
 </html>
