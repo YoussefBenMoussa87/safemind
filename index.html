@@ -53,33 +53,6 @@
 </head>
 <body class="h-screen w-screen flex selection:bg-brand-500/30 selection:text-brand-200 font-sans">
 
-    <!-- STARTUP TRUST OVERLAY (The Professional Loading Modal) -->
-    <div id="startupOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/90 backdrop-blur-xl transition-opacity duration-1000">
-        <div class="max-w-md w-full p-8 glass-panel rounded-3xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] text-center relative overflow-hidden">
-            <div class="absolute -top-20 -left-20 w-40 h-40 bg-brand-500/20 blur-3xl rounded-full"></div>
-            
-            <div class="h-16 w-16 bg-surface-800 border border-brand-500/30 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-brand-500/20 relative z-10">
-                <svg class="w-8 h-8 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </div>
-            
-            <h2 class="text-xl font-bold text-white mb-2 relative z-10">Securing Local Architecture</h2>
-            <p class="text-sm text-slate-400 mb-8 leading-relaxed relative z-10">
-                To guarantee absolute data privacy, YBM_AI runs entirely on your device. We are securely caching the offline neural engine. This requires a one-time download and will not be required on future visits.
-            </p>
-
-            <div class="space-y-2 relative z-10">
-                <div class="flex justify-between text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">
-                    <span>Cache Sync Progress</span>
-                    <span id="overlayPercent" class="text-brand-400">0%</span>
-                </div>
-                <!-- The Progress Bar -->
-                <div class="w-full bg-surface-900 rounded-full h-2 border border-white/5 overflow-hidden">
-                    <div id="overlayBar" class="bg-brand-500 h-2 rounded-full transition-all duration-300 ease-out shadow-[0_0_10px_rgba(14,165,233,0.8)]" style="width: 0%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Left Navigation & Architect Identity -->
     <aside class="w-72 h-full glass-panel border-r border-white/5 flex flex-col hidden md:flex relative z-20 shadow-[10px_0_30px_rgba(0,0,0,0.5)]">
         <div class="p-6 flex items-center gap-3 border-b border-white/5">
@@ -88,7 +61,7 @@
             </div>
             <div>
                 <h1 class="text-lg font-bold tracking-tight text-white">YBM_<span class="text-brand-500">AI</span></h1>
-                <p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Enterprise Core</p>
+                <p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Enterprise Proxy</p>
             </div>
         </div>
 
@@ -97,7 +70,7 @@
             <button class="w-full flex items-center gap-3 px-4 py-3 bg-brand-500/10 text-brand-400 border border-brand-500/20 rounded-xl font-semibold text-sm transition-all shadow-inner"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Risk Intelligence</button>
         </div>
 
-        <!-- Professional LinkedIn Integration -->
+        <!-- Professional LinkedIn Integration (Permanent Dynamic Avatar) -->
         <div class="p-6 border-t border-white/5 bg-surface-900/80">
             <p class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-3">System Architect</p>
             <a href="https://www.linkedin.com/in/youssef-moussa-0809253a2/" target="_blank" rel="noopener noreferrer" class="group block p-3.5 rounded-2xl bg-surface-800 border border-white/5 hover:border-brand-500/30 hover:bg-surface-800/80 transition-all shadow-lg">
@@ -121,9 +94,9 @@
         <!-- Header -->
         <header class="h-16 glass-panel border-b border-white/5 flex items-center justify-between px-6 md:px-8 shrink-0">
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2 px-3.5 py-1.5 bg-brand-500/10 border border-brand-500/20 rounded-full transition-colors duration-500" id="statusContainer">
-                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" id="statusPing"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500" id="statusDot"></span></span>
-                    <span class="text-[9px] font-mono font-bold text-brand-500 uppercase tracking-widest transition-colors duration-500" id="statusIndicator">INITIALIZING OFFLINE ENGINE</span>
+                <div class="flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full transition-colors duration-500">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                    <span class="text-[9px] font-mono font-bold text-emerald-400 uppercase tracking-widest">SECURE PROXY ACTIVE</span>
                 </div>
             </div>
             <div class="text-[10px] font-mono text-slate-400 bg-surface-900 px-3 py-1.5 rounded-md border border-white/5 shadow-inner" id="tokenDisplay">
@@ -133,7 +106,7 @@
 
         <!-- Chat Feed -->
         <div id="chatFeed" class="flex-1 overflow-y-auto p-4 md:p-10 flex flex-col gap-8 pb-40 scroll-smooth">
-            <!-- Rewritten, Friendly SaaS Greeting -->
+            <!-- SaaS Greeting -->
             <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
                 <div class="h-10 w-10 rounded-xl bg-surface-800 border border-brand-500/30 flex items-center justify-center shrink-0 shadow-lg">
                     <span class="font-mono font-black text-brand-500 text-xs tracking-tighter">AI</span>
@@ -141,9 +114,9 @@
                 <div class="flex flex-col gap-1 w-full mt-1">
                     <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest ml-1">YBM_AI System Protocol</span>
                     <div class="glass-panel border-white/5 rounded-2xl rounded-tl-sm p-6 text-[15px] text-slate-200 leading-relaxed shadow-md ai-markdown font-sans">
-                        System online. 👋 I am <strong>YBM_AI</strong>, your dedicated offline Health & Safety Architect. 
+                        System online. 👋 I am <strong>YBM_AI</strong>, your dedicated Health & Safety Enterprise Architect. 
                         <br><br>
-                        I am engineered to analyze hazards, cite global safety standards (OSHA, ISO, NEBOSH), and generate intelligent risk assessments instantly.
+                        I am securely connected via your Cloudflare Proxy to analyze hazards, cite global safety standards (OSHA, ISO, NEBOSH), and generate intelligent risk assessments instantly.
                         <br><br>
                         Let's keep the site safe. Describe a field observation to get started.
                     </div>
@@ -156,37 +129,36 @@
             <div class="max-w-4xl mx-auto">
                 <div class="glass-panel bg-surface-900/95 rounded-2xl p-2.5 flex items-end gap-3 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.7)] focus-within:border-brand-500/50 focus-within:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all">
                     <textarea id="userInput" 
-                        class="w-full max-h-32 min-h-[50px] bg-transparent text-[15px] text-white px-4 py-3 outline-none resize-none placeholder:text-slate-600 font-sans disabled:opacity-50"
-                        placeholder="Downloading neural engine... Please wait." disabled></textarea>
+                        class="w-full max-h-32 min-h-[50px] bg-transparent text-[15px] text-white px-4 py-3 outline-none resize-none placeholder:text-slate-500 font-sans disabled:opacity-50"
+                        placeholder="Describe a field observation (e.g., 'Worker on scaffolding without harness')..."></textarea>
                     
-                    <button id="submitBtn" class="h-[50px] w-[50px] shrink-0 bg-brand-600 hover:bg-brand-500 disabled:bg-surface-800 disabled:text-slate-600 text-white rounded-xl flex items-center justify-center transition-all active:scale-95 shadow-lg disabled:shadow-none mb-0.5 border border-brand-400/20" disabled>
+                    <button id="submitBtn" class="h-[50px] w-[50px] shrink-0 bg-brand-600 hover:bg-brand-500 disabled:bg-surface-800 disabled:text-slate-600 text-white rounded-xl flex items-center justify-center transition-all active:scale-95 shadow-lg disabled:shadow-none mb-0.5 border border-brand-400/20">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                     </button>
                 </div>
                 <div class="flex justify-between items-center mt-3 px-3">
                     <p class="text-[9px] text-slate-500 font-mono font-bold uppercase tracking-widest flex items-center gap-1.5">
                         <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        End-to-End Encrypted. Running Locally.
+                        End-to-End Encrypted via Cloudflare.
                     </p>
-                    <p class="text-[9px] text-brand-500/50 font-mono font-bold uppercase tracking-widest">v3.2.0 - SaaS Edition</p>
+                    <p class="text-[9px] text-brand-500/50 font-mono font-bold uppercase tracking-widest">v4.1.0 - Enterprise Secure</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- THE LOCAL AI ENGINE SCRIPT -->
-    <script type="module">
-        import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
+    <!-- THE SECURE CLOUDFLARE PROXY SCRIPT -->
+    <script>
+        // Enterprise Security: Zero API keys exposed to the frontend.
+        // We route securely through your established Cloudflare node.
+        const CLOUDFLARE_URL = "https://ybm-ai-proxy.tlsyoussef3.workers.dev";
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
         const submitBtn = document.getElementById('submitBtn');
-        const statusIndicator = document.getElementById('statusIndicator');
         const tokenDisplay = document.getElementById('tokenDisplay');
-        const startupOverlay = document.getElementById('startupOverlay');
         
         let totalTokens = 0;
-        let engine = null; 
 
         // 1. EVENT LISTENERS
         submitBtn.addEventListener('click', handleSubmission);
@@ -197,50 +169,10 @@
             }
         });
 
-        // 2. INITIALIZE AI
-        async function initializeLocalAI() {
-            try {
-                engine = await CreateMLCEngine("Phi-3-mini-4k-instruct-q4f16_1-MLC", {
-                    initProgressCallback: (progress) => {
-                        const percent = Math.round(progress.progress * 100);
-                        statusIndicator.innerText = `CACHE SYNC: ${percent}%`;
-                        document.getElementById('overlayPercent').innerText = `${percent}%`;
-                        document.getElementById('overlayBar').style.width = `${percent}%`;
-                    }
-                });
-                
-                // Fade out the overlay modal
-                startupOverlay.style.opacity = '0';
-                setTimeout(() => { startupOverlay.style.display = 'none'; }, 1000);
-
-                statusIndicator.innerText = "YBM_AI SECURE LINK ACTIVE";
-                statusIndicator.classList.replace('text-brand-500', 'text-emerald-400');
-                document.getElementById('statusDot').classList.replace('bg-brand-500', 'bg-emerald-500');
-                document.getElementById('statusPing').classList.replace('bg-brand-400', 'bg-emerald-400');
-                document.getElementById('statusContainer').classList.replace('bg-brand-500/10', 'bg-emerald-500/10');
-                document.getElementById('statusContainer').classList.replace('border-brand-500/20', 'border-emerald-500/20');
-                
-                userInput.placeholder = "Describe a field observation to begin...";
-                userInput.disabled = false;
-                submitBtn.disabled = false;
-                userInput.focus();
-
-            } catch (error) {
-                statusIndicator.innerText = "CRITICAL HARDWARE FAILURE";
-                statusIndicator.classList.replace('text-brand-500', 'text-red-500');
-                userInput.placeholder = "> ERR: WebGPU disabled or browser not supported.";
-                document.getElementById('overlayPercent').innerText = "ERROR";
-                document.getElementById('overlayPercent').classList.replace('text-brand-400', 'text-red-500');
-                document.getElementById('overlayBar').classList.replace('bg-brand-500', 'bg-red-500');
-                appendAIMessage(`⚠️ **SYSTEM HALTED:** ${error.message || "Your hardware/browser does not support WebGPU."}`);
-                console.error(error);
-            }
-        }
-
-        // 3. MAIN LOGIC LOOP
+        // 2. MAIN LOGIC LOOP
         async function handleSubmission() {
             const text = userInput.value.trim();
-            if (!text || !engine) return; 
+            if (!text) return; 
 
             userInput.value = '';
             userInput.disabled = true;
@@ -251,7 +183,7 @@
             scrollToBottom();
 
             try {
-                const aiResponse = await callLocalBackend(text);
+                const aiResponse = await callSecureProxy(text);
                 document.getElementById(typingId).remove();
                 
                 appendAIMessage(aiResponse.reply);
@@ -264,8 +196,7 @@
                 }
             } catch (error) {
                 document.getElementById(typingId)?.remove();
-                // Detailed error messaging for ultimate transparency
-                appendAIMessage(`⚠️ **Application Error:** ${error.message || "Failed to process the response."}`);
+                appendAIMessage(`⚠️ **System Error:** ${error.message || "Failed to communicate with Cloudflare."}`);
                 console.error("YBM_AI Debug:", error);
             } finally {
                 userInput.disabled = false;
@@ -275,8 +206,8 @@
             }
         }
 
-        // 4. THE AI BRAIN & BULLETPROOF JSON EXTRACTOR
-        async function callLocalBackend(userText) {
+        // 3. THE SECURE PROXY CONNECTOR & BULLETPROOF JSON EXTRACTOR
+        async function callSecureProxy(userText) {
             const systemPrompt = `You are YBM_AI, an elite Enterprise HSSE Architect built by Youssef Ben Moussa.
             Analyze the input. 
             If it's a general question, set isHazard to false. 
@@ -296,25 +227,38 @@
               }
             }`;
 
-            // Removed strict 'response_format' constraint to prevent WebGPU crashing on small models
-            const reply = await engine.chat.completions.create({
-                messages: [
-                    { role: "system", "content": systemPrompt },
-                    { role: "user", "content": userText }
-                ],
-                temperature: 0.1 
+            const response = await fetch(CLOUDFLARE_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "model": "meta-llama/llama-3-8b-instruct:free",
+                    "messages": [
+                        { "role": "system", "content": systemPrompt },
+                        { "role": "user", "content": userText }
+                    ],
+                    "temperature": 0.1
+                })
             });
 
-            if(reply.usage) {
-                totalTokens += reply.usage.total_tokens;
+            if (!response.ok) {
+                throw new Error(`Proxy connection failed: Status ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Telemetry update
+            if(data.usage) {
+                totalTokens += data.usage.total_tokens;
                 tokenDisplay.innerText = `SYS.TOKENS: ${String(totalTokens).padStart(4, '0')}`;
             }
 
-            const rawText = reply.choices[0]?.message?.content || "";
+            const rawText = data.choices[0]?.message?.content || "";
             let parsedData;
 
+            // Enterprise robust JSON parsing
             try {
-                // Enterprise robust JSON parsing
                 const match = rawText.match(/\{[\s\S]*\}/);
                 if (match) {
                     parsedData = JSON.parse(match[0]);
@@ -323,7 +267,6 @@
                 }
             } catch (e) {
                 console.warn("AI JSON Format Failure, engaging fallback.", e);
-                // Safe fallback guarantees no UI crashing
                 parsedData = { 
                     reply: rawText || "System processed request but returned no text.", 
                     isHazard: false 
@@ -333,10 +276,10 @@
             return parsedData;
         }
 
-        // 5. BULLETPROOF MARKDOWN PARSER
+        // 4. BULLETPROOF MARKDOWN PARSER
         function parseSimpleMarkdown(text) {
             if(!text) return "";
-            // Force strict type checking to prevent TypeError crashes
+            // Strict type checking to prevent TypeError crashes
             let safeText = typeof text === 'string' ? text : JSON.stringify(text);
             
             return safeText
@@ -349,7 +292,7 @@
                 .replace(/- (.*?)$/g, '<ul><li>$1</li></ul>');
         }
 
-        // 6. UI RENDERERS
+        // 5. UI RENDERERS
         function appendUserMessage(text) {
             const html = `
             <div class="flex justify-end animate-enter max-w-4xl mx-auto w-full">
@@ -470,9 +413,6 @@
         }
 
         function scrollToBottom() { setTimeout(() => { chatFeed.scrollTo({ top: chatFeed.scrollHeight, behavior: 'smooth' }); }, 100); }
-
-        // Start Boot Sequence
-        initializeLocalAI();
     </script>
 </body>
 </html>
