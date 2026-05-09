@@ -61,7 +61,7 @@
             </div>
             <div>
                 <h1 class="text-lg font-bold tracking-tight text-white">YBM_<span class="text-brand-500">AI</span></h1>
-                <p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Enterprise Proxy</p>
+                <p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Enterprise Cloud</p>
             </div>
         </div>
 
@@ -96,7 +96,7 @@
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full transition-colors duration-500">
                     <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-                    <span class="text-[9px] font-mono font-bold text-emerald-400 uppercase tracking-widest">SECURE PROXY ACTIVE</span>
+                    <span class="text-[9px] font-mono font-bold text-emerald-400 uppercase tracking-widest">CLOUD API CONNECTED</span>
                 </div>
             </div>
             <div class="text-[10px] font-mono text-slate-400 bg-surface-900 px-3 py-1.5 rounded-md border border-white/5 shadow-inner" id="tokenDisplay">
@@ -114,9 +114,9 @@
                 <div class="flex flex-col gap-1 w-full mt-1">
                     <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest ml-1">YBM_AI System Protocol</span>
                     <div class="glass-panel border-white/5 rounded-2xl rounded-tl-sm p-6 text-[15px] text-slate-200 leading-relaxed shadow-md ai-markdown font-sans">
-                        System online. 👋 I am <strong>YBM_AI</strong>, your dedicated Health & Safety Enterprise Architect. 
+                        System online. 👋 I am <strong>YBM_AI</strong>, your dedicated Health & Safety Cloud Architect. 
                         <br><br>
-                        I am securely connected via your Cloudflare Proxy to analyze hazards, cite global safety standards (OSHA, ISO, NEBOSH), and generate intelligent risk assessments instantly.
+                        I am connected via high-speed API to analyze hazards, cite global safety standards (OSHA, ISO, NEBOSH), and generate intelligent risk assessments instantly.
                         <br><br>
                         Let's keep the site safe. Describe a field observation to get started.
                     </div>
@@ -130,7 +130,7 @@
                 <div class="glass-panel bg-surface-900/95 rounded-2xl p-2.5 flex items-end gap-3 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.7)] focus-within:border-brand-500/50 focus-within:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all">
                     <textarea id="userInput" 
                         class="w-full max-h-32 min-h-[50px] bg-transparent text-[15px] text-white px-4 py-3 outline-none resize-none placeholder:text-slate-500 font-sans disabled:opacity-50"
-                        placeholder="Describe a field observation (e.g., 'Worker on scaffolding without harness')..."></textarea>
+                        placeholder="Describe a field observation (e.g., 'Worker on roof without fall protection')..."></textarea>
                     
                     <button id="submitBtn" class="h-[50px] w-[50px] shrink-0 bg-brand-600 hover:bg-brand-500 disabled:bg-surface-800 disabled:text-slate-600 text-white rounded-xl flex items-center justify-center transition-all active:scale-95 shadow-lg disabled:shadow-none mb-0.5 border border-brand-400/20">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
@@ -138,20 +138,22 @@
                 </div>
                 <div class="flex justify-between items-center mt-3 px-3">
                     <p class="text-[9px] text-slate-500 font-mono font-bold uppercase tracking-widest flex items-center gap-1.5">
-                        <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        End-to-End Encrypted via Cloudflare.
+                        <svg class="w-3 h-3 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                        OpenRouter API Framework
                     </p>
-                    <p class="text-[9px] text-brand-500/50 font-mono font-bold uppercase tracking-widest">v4.1.0 - Enterprise Secure</p>
+                    <p class="text-[9px] text-brand-500/50 font-mono font-bold uppercase tracking-widest">v5.0.0 - Cloud Production</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- THE SECURE CLOUDFLARE PROXY SCRIPT -->
+    <!-- THE DIRECT CLOUD API CONNECTOR -->
     <script>
-        // Enterprise Security: Zero API keys exposed to the frontend.
-        // We route securely through your established Cloudflare node.
-        const CLOUDFLARE_URL = "https://ybm-ai-proxy.tlsyoussef3.workers.dev";
+        // ==============================================================================
+        // YOUR FREE OPENROUTER API KEY GOES HERE
+        // Keep the quotes around it. Example: "sk-or-v1-abcdef123456789"
+        const OPENROUTER_API_KEY = "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"; 
+        // ==============================================================================
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
@@ -173,6 +175,13 @@
         async function handleSubmission() {
             const text = userInput.value.trim();
             if (!text) return; 
+            
+            // Failsafe if API key is not entered
+            if (OPENROUTER_API_KEY === "PASTE_YOUR_API_KEY_HERE" || !OPENROUTER_API_KEY.startsWith("sk-or-")) {
+                appendUserMessage(text);
+                appendAIMessage("⚠️ **SYSTEM HALTED:** You must paste your valid OpenRouter API key into line 144 of the HTML file.");
+                return;
+            }
 
             userInput.value = '';
             userInput.disabled = true;
@@ -183,7 +192,7 @@
             scrollToBottom();
 
             try {
-                const aiResponse = await callSecureProxy(text);
+                const aiResponse = await callCloudBackend(text);
                 document.getElementById(typingId).remove();
                 
                 appendAIMessage(aiResponse.reply);
@@ -196,7 +205,7 @@
                 }
             } catch (error) {
                 document.getElementById(typingId)?.remove();
-                appendAIMessage(`⚠️ **System Error:** ${error.message || "Failed to communicate with Cloudflare."}`);
+                appendAIMessage(`⚠️ **Network Error:** ${error.message || "Failed to communicate with OpenRouter API."}`);
                 console.error("YBM_AI Debug:", error);
             } finally {
                 userInput.disabled = false;
@@ -206,8 +215,8 @@
             }
         }
 
-        // 3. THE SECURE PROXY CONNECTOR & BULLETPROOF JSON EXTRACTOR
-        async function callSecureProxy(userText) {
+        // 3. THE API FETCH LOGIC & JSON EXTRACTOR
+        async function callCloudBackend(userText) {
             const systemPrompt = `You are YBM_AI, an elite Enterprise HSSE Architect built by Youssef Ben Moussa.
             Analyze the input. 
             If it's a general question, set isHazard to false. 
@@ -227,9 +236,12 @@
               }
             }`;
 
-            const response = await fetch(CLOUDFLARE_URL, {
+            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
+                    "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+                    "HTTP-Referer": window.location.href, // Identifies your site to OpenRouter
+                    "X-Title": "YBM_AI HSE Cloud",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
@@ -243,12 +255,13 @@
             });
 
             if (!response.ok) {
-                throw new Error(`Proxy connection failed: Status ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || `API rejected request: Status ${response.status}`);
             }
 
             const data = await response.json();
 
-            // Telemetry update
+            // Update System Telemetry
             if(data.usage) {
                 totalTokens += data.usage.total_tokens;
                 tokenDisplay.innerText = `SYS.TOKENS: ${String(totalTokens).padStart(4, '0')}`;
