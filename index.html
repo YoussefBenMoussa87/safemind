@@ -15,7 +15,7 @@
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: { 
-                        brand: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7' }, // Executive Blue
+                        brand: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7' },
                         surface: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
                     }
                 }
@@ -24,7 +24,6 @@
     </script>
 
     <style>
-        /* Global & Scrollbar Styling */
         body { background-color: #020617; color: #f8fafc; overflow: hidden; }
         .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .widget-panel { background: linear-gradient(180deg, rgba(30,41,59,1) 0%, rgba(15,23,42,1) 100%); }
@@ -34,7 +33,6 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.5); }
 
-        /* Animations */
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-enter { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
@@ -43,7 +41,6 @@
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
         @keyframes typing { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
 
-        /* Custom Markdown Styles for AI Output */
         .ai-markdown strong { color: #f8fafc; font-weight: 600; }
         .ai-markdown ul { margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .ai-markdown li { position: relative; padding-left: 1rem; margin-bottom: 0.25rem; color: #cbd5e1; }
@@ -144,9 +141,8 @@
 
     <!-- THE LOCAL AI ENGINE SCRIPT -->
     <script type="module">
-        // Using Skypack to bypass standard CDN 404 compilation errors
-        // Notice the hyphen in @mlc-ai instead of a dot
-import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
+        // Using the official esm.run CDN
+        import { CreateMLCEngine } from "https://esm.run/@mlc.ai/web-llm";
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
@@ -194,6 +190,7 @@ import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
                 statusIndicator.classList.replace('text-brand-500', 'text-red-500');
                 userInput.placeholder = "> ERR: WebGPU disabled or browser not supported.";
                 appendAIMessage("⚠️ **SYSTEM HALTED:** Your hardware or browser does not support WebGPU. Please ensure Hardware Acceleration is enabled in Chrome/Edge settings.");
+                console.error(error);
             }
         }
 
@@ -274,9 +271,7 @@ import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
             const rawText = reply.choices[0].message.content;
             let parsedData;
 
-            // Enterprise robust JSON parsing
             try {
-                // Regex extracts everything between first { and last }
                 const match = rawText.match(/\{[\s\S]*\}/);
                 if (match) {
                     parsedData = JSON.parse(match[0]);
@@ -285,10 +280,7 @@ import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
                 }
             } catch (e) {
                 console.warn("AI JSON Format Failure, engaging fallback.", e);
-                parsedData = {
-                    reply: rawText,
-                    isHazard: false
-                };
+                parsedData = { reply: rawText, isHazard: false };
             }
 
             return parsedData;
@@ -298,12 +290,12 @@ import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
         function parseSimpleMarkdown(text) {
             if(!text) return "";
             return text
-                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') // Sanitize
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
-                .replace(/\*(.*?)\*/g, '<em class="text-slate-400 italic">$1</em>') // Italic
-                .replace(/\\n/g, '<br>') // Handle escaped newlines
-                .replace(/\n/g, '<br>') // Handle raw newlines
-                .replace(/- (.*?)<br>/g, '<ul><li>$1</li></ul>') // Basic lists
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') 
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+                .replace(/\*(.*?)\*/g, '<em class="text-slate-400 italic">$1</em>') 
+                .replace(/\\n/g, '<br>') 
+                .replace(/\n/g, '<br>') 
+                .replace(/- (.*?)<br>/g, '<ul><li>$1</li></ul>') 
                 .replace(/- (.*?)$/g, '<ul><li>$1</li></ul>');
         }
 
@@ -419,7 +411,6 @@ import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
             </div>`;
             chatFeed.insertAdjacentHTML('beforeend', html);
 
-            // Animate the gauge bar after injection
             setTimeout(() => {
                 const bars = document.querySelectorAll('[data-target]');
                 bars.forEach(bar => {
