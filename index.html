@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YBM_AI | Enterprise Risk Intelligence</title>
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
     
@@ -23,6 +24,7 @@
     </script>
 
     <style>
+        /* Global & Scrollbar Styling */
         body { background-color: #020617; color: #f8fafc; overflow: hidden; }
         .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .widget-panel { background: linear-gradient(180deg, rgba(30,41,59,1) 0%, rgba(15,23,42,1) 100%); }
@@ -32,6 +34,7 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.5); }
 
+        /* Animations */
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-enter { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
@@ -40,7 +43,7 @@
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
         @keyframes typing { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
 
-        /* Custom Markdown Styles */
+        /* Custom Markdown Styles for AI Output */
         .ai-markdown strong { color: #f8fafc; font-weight: 600; }
         .ai-markdown ul { margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .ai-markdown li { position: relative; padding-left: 1rem; margin-bottom: 0.25rem; color: #cbd5e1; }
@@ -49,7 +52,7 @@
 </head>
 <body class="h-screen w-screen flex selection:bg-brand-500/30 selection:text-brand-200 font-sans">
 
-    <!-- Left Navigation -->
+    <!-- Left Navigation & Architect Identity -->
     <aside class="w-72 h-full glass-panel border-r border-white/5 flex flex-col hidden md:flex relative z-20 shadow-2xl">
         <div class="p-6 flex items-center gap-3 border-b border-white/5">
             <div class="h-10 w-10 bg-gradient-to-br from-brand-400 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/20">
@@ -91,9 +94,9 @@
         <!-- Header -->
         <header class="h-16 glass-panel border-b border-white/5 flex items-center justify-between px-6 md:px-8 shrink-0">
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2 px-3 py-1 bg-brand-500/10 border border-brand-500/20 rounded-full">
-                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span></span>
-                    <span class="text-[9px] font-mono font-bold text-brand-500 uppercase tracking-widest" id="statusIndicator">Booting YBM Neural Net</span>
+                <div class="flex items-center gap-2 px-3 py-1 bg-brand-500/10 border border-brand-500/20 rounded-full transition-colors duration-500" id="statusContainer">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" id="statusPing"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500" id="statusDot"></span></span>
+                    <span class="text-[9px] font-mono font-bold text-brand-500 uppercase tracking-widest transition-colors duration-500" id="statusIndicator">Booting YBM Neural Net</span>
                 </div>
             </div>
             <div class="text-[10px] font-mono text-slate-400 bg-surface-900 px-3 py-1.5 rounded-md border border-white/5 shadow-inner" id="tokenDisplay">
@@ -133,7 +136,7 @@
                 </div>
                 <div class="flex justify-between items-center mt-3 px-2">
                     <p class="text-[9px] text-slate-600 font-mono uppercase tracking-widest">End-to-End Encrypted. Running Locally.</p>
-                    <p class="text-[9px] text-brand-500/50 font-mono uppercase tracking-widest">v2.0.4 - Production</p>
+                    <p class="text-[9px] text-brand-500/50 font-mono uppercase tracking-widest">v2.0.5 - Production</p>
                 </div>
             </div>
         </div>
@@ -141,7 +144,8 @@
 
     <!-- THE LOCAL AI ENGINE SCRIPT -->
     <script type="module">
-     import { CreateMLCEngine } from "https://esm.sh/@mlc.ai/web-llm";
+        // Using Skypack to bypass standard CDN 404 compilation errors
+        import { CreateMLCEngine } from "https://cdn.skypack.dev/@mlc.ai/web-llm";
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
@@ -171,14 +175,15 @@
                     }
                 });
                 
+                // Visual status update to green
                 statusIndicator.innerText = "YBM_AI SECURE LINK ACTIVE";
                 statusIndicator.classList.replace('text-brand-500', 'text-emerald-400');
-                statusIndicator.previousElementSibling.querySelector('.bg-brand-500').classList.replace('bg-brand-500', 'bg-emerald-500');
-                statusIndicator.previousElementSibling.querySelector('.bg-brand-400').classList.replace('bg-brand-400', 'bg-emerald-400');
-                statusIndicator.parentElement.classList.replace('bg-brand-500/10', 'bg-emerald-500/10');
-                statusIndicator.parentElement.classList.replace('border-brand-500/20', 'border-emerald-500/20');
+                document.getElementById('statusDot').classList.replace('bg-brand-500', 'bg-emerald-500');
+                document.getElementById('statusPing').classList.replace('bg-brand-400', 'bg-emerald-400');
+                document.getElementById('statusContainer').classList.replace('bg-brand-500/10', 'bg-emerald-500/10');
+                document.getElementById('statusContainer').classList.replace('border-brand-500/20', 'border-emerald-500/20');
                 
-                userInput.placeholder = "> Input matrix... (e.g., 'Worker spotted entering confined space without gas tester')";
+                userInput.placeholder = "> Input matrix... (e.g., 'Worker spotted on scaffolding without harness')";
                 userInput.disabled = false;
                 submitBtn.disabled = false;
                 userInput.focus();
@@ -235,7 +240,7 @@
             If it's a general question, set isHazard to false. 
             If it's a field observation, set isHazard to true, calculate a risk score (0-100), and provide strict professional advice.
             
-            Use Markdown formatting in your "reply" string ONLY (e.g., **bold**, - lists, \n for newlines).
+            Use Markdown formatting in your "reply" string ONLY (e.g., **bold**, - lists, \\n for newlines).
 
             YOU MUST OUTPUT STRICTLY IN THIS JSON FORMAT. NO TEXT OUTSIDE THE BRACKETS.
             {
@@ -256,7 +261,7 @@
                     { role: "system", "content": systemPrompt },
                     { role: "user", "content": userText }
                 ],
-                temperature: 0.1, // Low temp for strictly structured JSON
+                temperature: 0.1, 
                 response_format: { type: "json_object" }
             });
 
@@ -279,7 +284,6 @@
                 }
             } catch (e) {
                 console.warn("AI JSON Format Failure, engaging fallback.", e);
-                // Graceful fallback if the AI hallucinates bad JSON syntax
                 parsedData = {
                     reply: rawText,
                     isHazard: false
@@ -419,14 +423,14 @@
                 const bars = document.querySelectorAll('[data-target]');
                 bars.forEach(bar => {
                     bar.style.width = bar.getAttribute('data-target');
-                    bar.removeAttribute('data-target'); // Prevent re-animating
+                    bar.removeAttribute('data-target');
                 });
             }, 50);
         }
 
         function scrollToBottom() { setTimeout(() => { chatFeed.scrollTo({ top: chatFeed.scrollHeight, behavior: 'smooth' }); }, 100); }
 
-        // Boot Sequence
+        // Start Boot Sequence
         initializeLocalAI();
     </script>
 </body>
