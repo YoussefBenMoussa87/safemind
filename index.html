@@ -8,18 +8,144 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-   <!-- Replace your current <script> block with this <script type="module"> block -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { brand: { 400: '#fb923c', 500: '#f97316', 600: '#ea580c' }, dark: { 900: '#030303', 800: '#0a0a0a', 700: '#121212' } }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: #030303; color: #f8fafc; overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.03), transparent 25%);
+        }
+        
+        .glass-panel { 
+            background: rgba(10, 10, 10, 0.4); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(249, 115, 22, 0.5); }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-enter { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .typing-pulse { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .2; } }
+    </style>
+</head>
+<body class="h-screen w-screen flex selection:bg-brand-500/30 selection:text-brand-200">
+
+    <!-- Left Sidebar -->
+    <aside class="w-64 h-full glass-panel border-r border-white/5 flex flex-col hidden lg:flex relative z-20">
+        <div class="p-6 border-b border-white/5 flex items-center gap-3">
+            <div class="h-8 w-8 bg-gradient-to-br from-brand-400 to-red-600 rounded flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(249,115,22,0.3)]">Y</div>
+            <div>
+                <h1 class="text-sm font-900 tracking-tight leading-none text-white">YBM_<span class="text-brand-500">AI</span></h1>
+                <p class="text-[8px] font-mono text-slate-500 uppercase tracking-widest mt-1">Command Center</p>
+            </div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col gap-6">
+            <div>
+                <p class="text-[9px] font-mono text-slate-600 uppercase tracking-widest mb-3">Live Modules</p>
+                <div class="space-y-2">
+                    <button class="w-full flex items-center gap-3 px-3 py-2 bg-brand-500/10 text-brand-400 border border-brand-500/20 rounded font-bold text-[10px] uppercase tracking-widest"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Risk Intelligence</button>
+                    <button class="w-full flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded font-bold text-[10px] uppercase tracking-widest transition-all"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg> Compliance Logs</button>
+                </div>
+            </div>
+        </div>
+        <div class="p-6 border-t border-white/5">
+            <div class="flex items-center gap-3">
+                <img src="https://media.licdn.com/dms/image/v2/D4E03AQG_QOaM0t9E4g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715783515438?e=1734566400&v=beta&t=X_3yNf_0L4Yn9S7R7J7W4S7H5X_G-N-D6W5J9S9X_0" class="w-8 h-8 rounded border border-white/10" alt="Youssef">
+                <div>
+                    <p class="text-[10px] font-bold text-white uppercase tracking-widest">Y. Ben Moussa</p>
+                    <p class="text-[8px] font-mono text-slate-500 uppercase">Chief Architect</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <main class="flex-1 h-full flex flex-col relative z-10 bg-dark-900/50">
+        <header class="h-16 glass-panel border-b border-white/5 flex items-center justify-between px-6 shrink-0">
+            <div class="flex items-center gap-3">
+                <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest">Local Node Active</span>
+            </div>
+            <div class="text-[9px] font-mono text-slate-500 uppercase tracking-widest flex gap-4">
+                <span>Model: Llama-3-8B-Local</span>
+                <span id="clock">00:00:00 UTC</span>
+            </div>
+        </header>
+
+        <div id="chatFeed" class="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col gap-6 pb-40 scroll-smooth">
+            <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
+                <div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
+                <div class="flex flex-col gap-1 w-full">
+                    <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest ml-1">YBM_AI Core</span>
+                    <div class="glass-panel border-white/5 rounded-xl rounded-tl-sm p-5 text-sm text-slate-200 font-medium leading-relaxed">
+                        Enterprise neural net initialized. I am your local, offline HSSE Co-Pilot. How can I assist you today?
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-dark-900 via-dark-900 to-transparent pt-12 pb-8 px-6">
+            <div class="max-w-4xl mx-auto glass-panel bg-black/80 rounded-2xl p-2 flex items-end gap-2 border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] focus-within:border-brand-500/50 transition-colors relative">
+                <textarea id="userInput" 
+                    class="w-full max-h-32 min-h-[50px] bg-transparent text-sm text-white px-4 py-3 outline-none resize-none placeholder:text-slate-600 font-mono"
+                    placeholder="> Booting Neural Net..."
+                    onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); window.handleUserSubmit(); }"></textarea>
+                
+                <button onclick="window.handleUserSubmit()" id="submitBtn" class="h-[50px] w-[50px] shrink-0 bg-white/5 hover:bg-brand-600 text-white border border-white/10 rounded-xl flex items-center justify-center transition-all active:scale-95">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Right Telemetry Sidebar -->
+    <aside class="w-80 h-full glass-panel border-l border-white/5 hidden xl:flex flex-col relative z-20 bg-dark-900/80">
+        <div class="p-6 border-b border-white/5"><h3 class="text-[10px] font-black text-white uppercase tracking-widest">System Telemetry</h3></div>
+        <div class="p-6 space-y-6">
+            <div>
+                <div class="flex justify-between mb-2"><span class="text-[9px] font-mono text-slate-500 uppercase">Local Engine</span><span class="text-[9px] font-mono text-emerald-500">CONNECTED</span></div>
+                <div class="w-full bg-white/5 rounded-full h-1"><div class="bg-emerald-500 h-1 rounded-full w-full"></div></div>
+            </div>
+            <div>
+                <div class="flex justify-between mb-2"><span class="text-[9px] font-mono text-slate-500 uppercase">Context Window</span><span class="text-[9px] font-mono text-brand-400" id="tokenCount">0 / 8000</span></div>
+                <div class="w-full bg-white/5 rounded-full h-1"><div class="bg-brand-500 h-1 rounded-full w-[5%]" id="tokenBar"></div></div>
+            </div>
+            <div class="glass-panel p-4 rounded border border-white/5 bg-black/50">
+                <span class="text-[9px] font-mono text-slate-600 uppercase block mb-2">Live Log Output</span>
+                <div id="systemLog" class="text-[8px] font-mono text-emerald-500/70 h-32 overflow-hidden flex flex-col justify-end space-y-1">
+                    <p>> System boot sequence initiated.</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- THE LOCAL AI ENGINE SCRIPT -->
     <script type="module">
-        // Importation du moteur WebLLM depuis le CDN
         import { CreateMLCEngine } from "https://esm.run/@mlc.ai/web-llm";
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
         const submitBtn = document.getElementById('submitBtn');
         let totalTokens = 0;
-        let engine; // Le moteur IA local
+        let engine; 
 
-        // Horloge
         setInterval(() => { document.getElementById('clock').innerText = new Date().toISOString().split('T')[1].split('.')[0] + " UTC"; }, 1000);
 
         function logToTelemetry(msg) {
@@ -30,16 +156,15 @@
             }
         }
 
-        // --- INITIALISATION DU MOTEUR LOCAL ---
         async function initializeLocalAI() {
             submitBtn.disabled = true;
-            logToTelemetry(`<span class="text-brand-400">Booting Local Neural Net (WebGPU)...</span>`);
-            userInput.placeholder = "> Downloading HSE Core (First time only)...";
+            logToTelemetry(`<span class="text-brand-400">Booting Local Neural Net...</span>`);
+            userInput.placeholder = "> Downloading HSE Core Model (Please wait)...";
 
             try {
-                // Nous utilisons Llama-3-8B, optimisé pour le navigateur
+                // Using Phi-3 as it's faster and highly capable for local browser testing
                 engine = await CreateMLCEngine(
-                    "Llama-3-8B-Instruct-q4f32_1-MLC-1k",
+                    "Phi-3-mini-4k-instruct-q4f16_1-MLC",
                     {
                         initProgressCallback: (progress) => {
                             const percent = Math.round(progress.progress * 100);
@@ -49,22 +174,21 @@
                     }
                 );
                 
-                logToTelemetry(`<span class="text-emerald-500">Local Engine Ready. Secure & Offline.</span>`);
-                document.getElementById('clock').innerText = "ONLINE - LOCAL";
+                logToTelemetry(`<span class="text-emerald-500">Local Engine Ready.</span>`);
+                document.getElementById('clock').innerText = "ONLINE";
                 userInput.placeholder = "> Initialize scan... Describe hazard or ask a question...";
                 submitBtn.disabled = false;
             } catch (error) {
-                logToTelemetry(`<span class="text-red-500">FATAL: WebGPU not supported on this device.</span>`);
+                logToTelemetry(`<span class="text-red-500">FATAL ERROR. Check F12 Console.</span>`);
                 console.error(error);
             }
         }
 
-        // Démarrer l'IA au chargement de la page
         initializeLocalAI();
 
-        async function handleUserSubmit() {
+        window.handleUserSubmit = async function() {
             const text = userInput.value.trim();
-            if (!text || !engine) return; // Attendre que l'IA soit chargée
+            if (!text || !engine) return; 
 
             userInput.value = '';
             appendUserMessage(text);
@@ -72,79 +196,68 @@
             scrollToBottom();
             
             submitBtn.disabled = true;
-            logToTelemetry(`Processing via Local Llama-3 Engine...`);
+            logToTelemetry(`Processing offline...`);
 
             try {
                 const aiResponse = await callLocalBackend(text);
                 document.getElementById(typingId).remove();
                 
-                // Render Conversational Text
                 appendAIMessage(aiResponse.reply);
                 
-                // Render Widget if Hazard Detected
                 if (aiResponse.isHazard && aiResponse.riskData) {
                     setTimeout(() => {
                         appendDashboardWidget(aiResponse.riskData);
                         scrollToBottom();
-                        logToTelemetry(`Risk Widget generated successfully.`);
+                        logToTelemetry(`Widget generated.`);
                     }, 800);
                 }
-                
                 scrollToBottom();
             } catch (error) {
                 document.getElementById(typingId)?.remove();
-                appendAIMessage("⚠️ Error: Neural Net processing failed. Ensure strict JSON formatting.");
-                logToTelemetry(`<span class="text-red-500">Engine Fetch Failed.</span>`);
+                appendAIMessage("⚠️ Error processing request.");
                 console.error(error);
             } finally {
                 submitBtn.disabled = false;
             }
         }
 
-        // --- NOUVELLE FONCTION: REMPLACE LE FETCH CLOUDFLARE PAR L'IA LOCALE ---
         async function callLocalBackend(userText) {
             const systemPrompt = `You are YBM_AI, an elite Enterprise HSSE Architect. 
             Read the user's input.
-            1. If it's a greeting or general question, respond conversationally and set isHazard to false.
-            2. If it's a field observation or safety hazard, respond conversationally AND provide risk analysis data, setting isHazard to true.
+            1. If it's a greeting, respond conversationally and set isHazard to false.
+            2. If it's a field observation/hazard, respond conversationally AND provide risk analysis data, setting isHazard to true.
 
-            You MUST respond with ONLY a raw JSON object. No markdown formatting.
+            You MUST respond with ONLY a raw JSON object. NO markdown, NO backticks.
             {
-              "reply": "Your conversational response as the AI",
-              "isHazard": boolean,
+              "reply": "Your conversational response",
+              "isHazard": true,
               "riskData": {
-                 "score": (0-100),
+                 "score": 85,
                  "label": "CRITICAL",
                  "color": "red",
-                 "domains": ["Category 1", "Category 2"],
                  "actions": ["Action 1", "Action 2"],
-                 "stds": ["ISO/OSHA Ref 1", "ISO/OSHA Ref 2"],
-                 "humanFactor": "Your psychological analysis of the worker's behavior"
+                 "stds": ["OSHA 1926", "ISO 45001"],
+                 "humanFactor": "Psychological analysis"
               }
             }`;
 
-            // Appel direct au modèle chargé dans la RAM/GPU locale
             const reply = await engine.chat.completions.create({
                 messages: [
                     { role: "system", "content": systemPrompt },
                     { role: "user", "content": userText }
                 ],
                 temperature: 0.2,
-                response_format: { type: "json_object" } // Force le format JSON
+                response_format: { type: "json_object" }
             });
 
-            // Mise à jour de la télémétrie des tokens (WebLLM fournit ces métriques)
             if(reply.usage) {
                 totalTokens += reply.usage.total_tokens;
-                const tokenEl = document.getElementById('tokenCount');
-                if(tokenEl) tokenEl.innerText = `${totalTokens} / 8000`;
-                logToTelemetry(`Tokens used: ${reply.usage.total_tokens}`);
+                document.getElementById('tokenCount').innerText = `${totalTokens} / 8000`;
             }
 
             let rawText = reply.choices[0].message.content;
-            
-            // Nettoyage rigoureux du JSON
-            let cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+            let cleanJson = rawText.replace(/```json/gi, "").replace(/
+```/g, "").trim();
             const startIndex = cleanJson.indexOf('{');
             const endIndex = cleanJson.lastIndexOf('}');
             if (startIndex !== -1 && endIndex !== -1) {
@@ -154,77 +267,44 @@
             return JSON.parse(cleanJson);
         }
 
-        // --- LES UI RENDERERS RESTENT INTACTS ---
-        // (Copiez ici vos fonctions appendUserMessage, appendAIMessage, appendTypingIndicator, appendDashboardWidget, et scrollToBottom telles qu'elles sont dans votre code d'origine)
-
         function appendUserMessage(text) {
-            const html = `
-            <div class="flex justify-end animate-enter max-w-4xl mx-auto w-full">
-                <div class="bg-white/10 border border-white/5 rounded-xl rounded-tr-sm px-5 py-3.5 text-sm text-white font-mono max-w-[80%] shadow-lg">
-                    > ${text}
-                </div>
-            </div>`;
+            const html = `<div class="flex justify-end animate-enter max-w-4xl mx-auto w-full"><div class="bg-white/10 border border-white/5 rounded-xl rounded-tr-sm px-5 py-3.5 text-sm text-white font-mono max-w-[80%] shadow-lg">> ${text}</div></div>`;
             chatFeed.insertAdjacentHTML('beforeend', html);
         }
 
         function appendAIMessage(text) {
-            const html = `
-            <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
-                <div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
-                <div class="flex flex-col gap-1 w-full">
-                    <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest ml-1">YBM_AI Core</span>
-                    <div class="glass-panel border-white/5 rounded-xl rounded-tl-sm p-5 text-sm text-slate-200 font-medium leading-relaxed">
-                        ${text}
-                    </div>
-                </div>
-            </div>`;
+            const html = `<div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full"><div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div><div class="flex flex-col gap-1 w-full"><span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest ml-1">YBM_AI Core</span><div class="glass-panel border-white/5 rounded-xl rounded-tl-sm p-5 text-sm text-slate-200 font-medium leading-relaxed">${text}</div></div></div>`;
             chatFeed.insertAdjacentHTML('beforeend', html);
         }
 
         function appendTypingIndicator() {
             const id = 'typing-' + Date.now();
-            const html = `
-            <div id="${id}" class="flex gap-4 animate-enter max-w-4xl mx-auto w-full">
-                <div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div>
-                <div class="glass-panel border-white/5 rounded-xl rounded-tl-sm px-5 py-4 flex gap-2 items-center w-20">
-                    <div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 0ms;"></div>
-                    <div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 300ms;"></div>
-                    <div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 600ms;"></div>
-                </div>
-            </div>`;
+            const html = `<div id="${id}" class="flex gap-4 animate-enter max-w-4xl mx-auto w-full"><div class="h-8 w-8 rounded bg-dark-800 border border-brand-500/30 flex items-center justify-center shrink-0"><span class="text-[10px] font-bold text-brand-500">AI</span></div><div class="glass-panel border-white/5 rounded-xl rounded-tl-sm px-5 py-4 flex gap-2 items-center w-20"><div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 0ms;"></div><div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 300ms;"></div><div class="w-1.5 h-1.5 bg-brand-500 rounded-full typing-pulse" style="animation-delay: 600ms;"></div></div></div>`;
             chatFeed.insertAdjacentHTML('beforeend', html);
             return id;
         }
 
         function appendDashboardWidget(data) {
-            const validColors = ['red', 'orange', 'emerald'];
-            let color = validColors.includes(data.color) ? data.color : 'orange';
-            if (data.color === 'green') color = 'emerald';
-
-            const tc = `text-${color}-500`;
-            const bc = `border-${color}-500`;
-            const bgc = `bg-${color}-500/10`;
-
+            const color = (data.color === 'red' || data.color === 'orange') ? data.color : 'emerald';
             const html = `
             <div class="flex gap-4 animate-enter max-w-4xl mx-auto w-full ml-12 mb-4">
                 <div class="w-full bg-black/60 border border-white/10 rounded-xl overflow-hidden shadow-2xl relative">
-                    <div class="absolute top-0 left-0 w-full h-1 ${bgc}"></div>
+                    <div class="absolute top-0 left-0 w-full h-1 bg-${color}-500/10"></div>
                     <div class="bg-dark-800/80 px-6 py-3 border-b border-white/5 flex justify-between items-center">
                         <div class="flex items-center gap-2">
-                            <svg class="w-3.5 h-3.5 ${tc}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             <span class="text-[9px] font-mono text-slate-300 uppercase tracking-widest">Risk Intelligence Widget</span>
                         </div>
                     </div>
                     <div class="p-6 grid grid-cols-1 md:grid-cols-4 gap-6">
-                        <div class="bg-white/5 rounded-lg p-5 border-l-2 ${bc} flex flex-col items-center justify-center text-center col-span-1">
+                        <div class="bg-white/5 rounded-lg p-5 border-l-2 border-${color}-500 flex flex-col items-center justify-center text-center col-span-1">
                             <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Index Score</span>
                             <div class="text-5xl font-900 text-white tracking-tighter">${data.score}</div>
-                            <span class="px-2 py-1 mt-2 ${bgc} ${tc} text-[8px] font-bold uppercase tracking-widest rounded">${data.label}</span>
+                            <span class="px-2 py-1 mt-2 bg-${color}-500/10 text-${color}-500 text-[8px] font-bold uppercase tracking-widest rounded">${data.label}</span>
                         </div>
                         <div class="md:col-span-3 flex flex-col justify-center gap-4">
                             <div>
                                 <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block mb-1">Tactical Directives</span>
-                                <ul class="text-sm text-slate-200 space-y-1">${(data.actions || []).map(a => `<li class="flex items-start gap-2"><span class="${tc}">›</span> ${a}</li>`).join('')}</ul>
+                                <ul class="text-sm text-slate-200 space-y-1">${(data.actions || []).map(a => `<li class="flex items-start gap-2"><span class="text-${color}-500">›</span> ${a}</li>`).join('')}</ul>
                             </div>
                             <div class="grid grid-cols-2 gap-4 pt-3 border-t border-white/5">
                                 <div>
@@ -244,9 +324,6 @@
         }
 
         function scrollToBottom() { setTimeout(() => { chatFeed.scrollTo({ top: chatFeed.scrollHeight, behavior: 'smooth' }); }, 50); }
-        
-        // Expose handleUserSubmit to the global window object so your HTML onclick works
-        window.handleUserSubmit = handleUserSubmit;
     </script>
 </body>
 </html>
