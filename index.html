@@ -145,7 +145,8 @@
     <!-- THE LOCAL AI ENGINE SCRIPT -->
     <script type="module">
         // Using Skypack to bypass standard CDN 404 compilation errors
-        import { CreateMLCEngine } from "https://cdn.skypack.dev/@mlc.ai/web-llm";
+        // Notice the hyphen in @mlc-ai instead of a dot
+import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
