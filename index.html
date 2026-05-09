@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YBM_AI | Enterprise Risk Intelligence</title>
+    
+    <!-- Fixes the favicon.ico 404 error in your console -->
+    <link rel="icon" href="data:,">
+    
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -133,7 +137,7 @@
                 </div>
                 <div class="flex justify-between items-center mt-3 px-2">
                     <p class="text-[9px] text-slate-600 font-mono uppercase tracking-widest">End-to-End Encrypted. Running Locally.</p>
-                    <p class="text-[9px] text-brand-500/50 font-mono uppercase tracking-widest">v2.0.5 - Production</p>
+                    <p class="text-[9px] text-brand-500/50 font-mono uppercase tracking-widest">v3.0.0 - Production Core</p>
                 </div>
             </div>
         </div>
@@ -141,8 +145,8 @@
 
     <!-- THE LOCAL AI ENGINE SCRIPT -->
     <script type="module">
-        // Using the official esm.run CDN
-        import { CreateMLCEngine } from "https://esm.run/@mlc.ai/web-llm";
+        // Audited and Confirmed: Official esm.run CDN with the correct @mlc-ai hyphenation
+        import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
 
         const chatFeed = document.getElementById('chatFeed');
         const userInput = document.getElementById('userInput');
